@@ -10,7 +10,7 @@
     "keywords": [
         "you"
     ],
-    "author": "duynq18'",
+    "author": "duynq2197@gmail.com'",
     "license": "ISC",
     "dependencies": {
         "express": "^4.17.1",
@@ -19,5 +19,8 @@
         "windows-build-tools": "^5.2.2",
         "yt-search": "^2.5.1",
         "ytdl-core": "^4.4.0"
+    },
+    "engines": {
+        "node": "10.x"
     }
 }
