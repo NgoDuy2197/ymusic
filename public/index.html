@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Music !</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app" class="row">
+        <!-- MENU SLIDE -->
+        <div id="mySidenav" class="sidenav">
+            <div>
+                <span class="mdi mdi-music-box white-text">MUSIC</span>
+            </div>
+            <div style="min-width: 200px;"><input class="bg-black white-text" type="text" id="sVideoName" placeholder="Search.." autocomplete="">
+                <button class="btn btn-search mdi mdi-magnify" id="btnSearch" onclick="searchVideo()"></button></div>
+            <div class="menu-area">
+                <ul id="myMenu">
+                </ul>
+            </div>
+        </div>
+        <!-- MENU SLIDE (END) -->
+        <div style="height: 100%;"></div>
+        <div class="menu" id="btnToggleMenu" onclick="toggleMenu()" class="mdi mdi-menu-right">
+        </div>
+
+
+        <div class="right" style="background-color:#ddd;">
+            <div class="divVideo">
+                <video controls autoplay id="myVideo">
+                    <source src="" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+            </div>
+
+            <div class="content">
+                <h1><span id="infoSongName" class="mdi mdi-music-clef-treble">Title</span></h1>
+                <p>
+                    <div id="infoDescribe">Describe</div>
+                    <div id="infoAuthorName">Author</div>
+                </p>
+                <button class="btn btn-play mdi mdi-play-circle-outline" id="btnPlay" onclick="playMusic()"></button>
+                <br/>
+                <input type="range" min="1" max="100" value="50">
+                <button class="btn" id="" onclick="">?</button>
+                <button class="btn" id="" onclick="">?</button>
+                <button id="btnFullscreen" class="btn btn-fullscreen mdi mdi-fullscreen" title="Phóng to" onclick="toggleFullscreen()"></button>
+                <button id="btnBlur" class="btn btn-fullscreen mdi mdi-blur" title="Làm mờ" onclick="toggleBlur()"></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="index.js"></script>
+</body>
+
+
+</html>
