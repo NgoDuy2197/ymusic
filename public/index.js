@@ -73,7 +73,6 @@ function playVideo(li) {
     myVideo.find("source").attr("src", `http://localhost:3000/video/${li.id}`)
     video.load();
     video.play();
-    togglePlay()
     nextSongId = li.dataset.authorname
     $.get(`http://localhost:3000/info/${li.id}`, function(data) {
         refreshListVideos(data)
