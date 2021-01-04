@@ -141,4 +141,4 @@ function toggleBlur() {
 
 //INIT ()
 toggleMenu()
-playVideo({ id: "cpvzKPgFOmg", dataset: {} })
+playVideo({ id: "cpvzKPgFOmg", dataset: { title: "Một điều anh ngại nói ra", description: `<h1 class="glow">https://www.facebook.com/duynq2197/</h1>`, authorname: "Copyright by duynq2197@gmail.com" } })
