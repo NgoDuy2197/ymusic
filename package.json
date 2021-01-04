@@ -16,7 +16,6 @@
         "express": "^4.17.1",
         "fs": "0.0.1-security",
         "path": "^0.12.7",
-        "windows-build-tools": "^5.2.2",
         "yt-search": "^2.5.1",
         "ytdl-core": "^4.4.0"
     },
