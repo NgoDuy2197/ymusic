@@ -58,7 +58,7 @@ function refreshListVideos(data) {
 
 function searchVideo() {
     const sText = $("#sVideoName").val()
-    $.get("http://localhost:3000/search", {
+    $.get("./search", {
         sText
     }, function(data) {
         refreshListVideos(data)
@@ -70,11 +70,11 @@ function playVideo(li) {
     $("#infoDescribe").html(li.dataset.description)
     console.log(li.dataset.authorname)
     $("#infoAuthorName").html(li.dataset.authorname)
-    myVideo.find("source").attr("src", `http://localhost:3000/video/${li.id}`)
+    myVideo.find("source").attr("src", `./video/${li.id}`)
     video.load();
     video.play();
     nextSongId = li.dataset.authorname
-    $.get(`http://localhost:3000/info/${li.id}`, function(data) {
+    $.get(`./info/${li.id}`, function(data) {
         refreshListVideos(data)
     })
 }
