@@ -171,10 +171,10 @@ function toggleCountCurrentTime() {
         let currentTime = video.currentTime || 0, duration = video.duration
         if (duration) rangeVideo.val(currentTime)
         if (currentTime > 0) {
-            let minT = Math.floor(duration / 60)
-            let secT = Math.floor(duration % 60)
-            let minC = Math.floor(currentTime / 60)
-            let secC = Math.floor(currentTime % 60)
+            let minT = Math.floor(duration / 60).toString().padStart(2,"0")
+            let secT = Math.floor(duration % 60).toString().padStart(2,"0")
+            let minC = Math.floor(currentTime / 60).toString().padStart(2,"0")
+            let secC = Math.floor(currentTime % 60).toString().padStart(2,"0")
             let total = ""
             if (video.duration != "Infinity") total = ` / ${minT}:${secT}`
             rangeVideoLabel.text(`${minC}:${secC}${total}`)
@@ -194,7 +194,7 @@ playVideo({
     id: "cpvzKPgFOmg",
     dataset: {
         title: "Một điều anh ngại nói ra",
-        description: `<h1>https://www.facebook.com/duynq2197/</h1>`,
+        description: `<h3>https://www.facebook.com/duynq2197</h3>`,
         authorname: "Copyright by duynq2197@gmail.com"
     }
 })

@@ -34,9 +34,7 @@
 
         <div class="right" style="background-color:#ddd;">
             <div class="divVideo">
-                <video 
-                class="video-js"
-                controls autoplay id="myVideo">
+                <video autoplay id="myVideo">
                     <source src="" type="video/mp4">
                     Your browser does not support HTML5 video.
                 </video>
@@ -50,8 +48,11 @@
                 </p>
                 <button class="btn btn-play mdi mdi-play-circle-outline" id="btnPlay" onclick="playMusic()"></button>
                 <br/>
-                <div><label id="rangeVideoLabel" for="rangeVideo">00:00</label></div>
-                <input id="rangeVideo" name="rangeVideo" type="range" min="1" max="100" value="0" onchange="rangeVideoChange(this.value)">
+                <div style="margin-top: 5px;">
+                    <span><input id="rangeVideo" name="rangeVideo" type="range" min="1" max="100" value="0" onchange="rangeVideoChange(this.value)"></span>
+                    <span id="rangeVideoLabel" style="line-height: 15px; vertical-align: text-top;">00:00</span>
+                </div>
+                
                 <button class="btn" style="width:80px;" id="" onclick="">Ngô Duy</button>
                 <button id="btnFullscreen" class="btn btn-fullscreen mdi mdi-cast" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
                 <button id="btnBlur" class="btn btn-fullscreen mdi mdi-blur" title="Làm mờ" onclick="toggleBlur()"></button>
