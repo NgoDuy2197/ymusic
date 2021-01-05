@@ -18,10 +18,11 @@ app.get('/video/:videoId', async(req, res, next) => {
             videoId = params.videoId
         let info = await ytdl.getInfo(videoId),
             vFormats = info.formats
-
+/*
         let format = ytdl.chooseFormat(info.formats, {
             quality: '136'
         })
+        */
         ytdl(videoId).pipe(res)
     } catch (error) {
         next(error)
