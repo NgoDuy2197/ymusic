@@ -4,6 +4,8 @@ var btn = document.getElementById("btnPlay");
 var btnToggleMenu = $("#btnToggleMenu")
 var btnPlay = $("#btnPlay")
 var btnBlur = $("#btnBlur")
+var rangeVideo = $("#rangeVideo")
+var rangeVideoLabel = $("#rangeVideoLabel")
 const myVideo = $("#myVideo")
 const myMenu = $("#myMenu")
 
@@ -13,8 +15,18 @@ var nextSongId = ""
 
 
 
-video.onended = function(e) {
+video.onended = function (e) {
     playVideo(myMenu.children()[0])
+    togglePlay()
+};
+video.onloadeddata = function (e) {
+    rangeVideo.val(video.currentTime)
+    rangeVideo.attr('max', video.duration)
+}
+video.onplaying = function (e) {
+    toggleCountCurrentTime()
+    btnPlay.removeClass("mdi-play-circle-outline")
+    btnPlay.addClass("mdi-pause-circle-outline")
 };
 
 function togglePlay() {
@@ -42,9 +54,11 @@ function playMusic() {
 function openVideoFullscreen() {
     if (video.requestFullscreen) {
         video.requestFullscreen();
-    } else if (video.webkitRequestFullscreen) { /* Safari */
+    } else if (video.webkitRequestFullscreen) {
+        /* Safari */
         video.webkitRequestFullscreen();
-    } else if (video.msRequestFullscreen) { /* IE11 */
+    } else if (video.msRequestFullscreen) {
+        /* IE11 */
         video.msRequestFullscreen();
     }
 }
@@ -60,7 +74,7 @@ function searchVideo() {
     const sText = $("#sVideoName").val()
     $.get("./search", {
         sText
-    }, function(data) {
+    }, function (data) {
         refreshListVideos(data)
     })
 }
@@ -68,13 +82,12 @@ function searchVideo() {
 function playVideo(li) {
     $("#infoSongName").html(li.dataset.title)
     $("#infoDescribe").html(li.dataset.description)
-    console.log(li.dataset.authorname)
     $("#infoAuthorName").html(li.dataset.authorname)
     myVideo.find("source").attr("src", `./video/${li.id}`)
     video.load();
     video.play();
     nextSongId = li.dataset.authorname
-    $.get(`./info/${li.id}`, function(data) {
+    $.get(`./info/${li.id}`, function (data) {
         refreshListVideos(data)
     })
 }
@@ -82,9 +95,11 @@ function playVideo(li) {
 function openAppFullscreen() {
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    } else if (elem.webkitRequestFullscreen) {
+        /* Safari */
         elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
+    } else if (elem.msRequestFullscreen) {
+        /* IE11 */
         elem.msRequestFullscreen();
     }
 }
@@ -92,9 +107,11 @@ function openAppFullscreen() {
 function closeAppFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
+    } else if (document.webkitExitFullscreen) {
+        /* Safari */
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
+    } else if (document.msExitFullscreen) {
+        /* IE11 */
         document.msExitFullscreen();
     }
 }
@@ -105,6 +122,18 @@ function toggleFullscreen() {
         closeAppFullscreen()
     } else {
         openAppFullscreen()
+    }
+}
+
+function videoFullscreen() {
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
     }
 }
 
@@ -137,8 +166,35 @@ function toggleBlur() {
     }
 }
 
+function toggleCountCurrentTime() {
+    let ite = setInterval(() => {
+        let currentTime = video.currentTime || 0, duration = video.duration
+        if (duration) rangeVideo.val(currentTime)
+        if (currentTime > 0) {
+            let minT = Math.floor(duration / 60)
+            let secT = Math.floor(duration % 60)
+            let minC = Math.floor(currentTime / 60)
+            let secC = Math.floor(currentTime % 60)
+            let total = ""
+            if (video.duration != "Infinity") total = ` / ${minT}:${secT}`
+            rangeVideoLabel.text(`${minC}:${secC}${total}`)
+        }
+    }, 1000)
+}
+
+function rangeVideoChange(value) {
+    video.currentTime = value
+}
+
 
 
 //INIT ()
 toggleMenu()
-playVideo({ id: "cpvzKPgFOmg", dataset: { title: "Một điều anh ngại nói ra", description: `<h1>https://www.facebook.com/duynq2197/</h1>`, authorname: "Copyright by duynq2197@gmail.com" } })
+playVideo({
+    id: "cpvzKPgFOmg",
+    dataset: {
+        title: "Một điều anh ngại nói ra",
+        description: `<h1>https://www.facebook.com/duynq2197/</h1>`,
+        authorname: "Copyright by duynq2197@gmail.com"
+    }
+})
