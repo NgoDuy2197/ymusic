@@ -14,7 +14,7 @@ const infoAreaSmall = $("#infoAreaSmall")
 
 // VAR LOCAL
 var nextSongId = ""
-
+var videoSize = 0
 
 
 video.onended = function (e) {
@@ -155,6 +155,7 @@ function toggleMenu() {
         btnToggleMenu.removeClass("mdi mdi-menu-right")
         btnToggleMenu.addClass("mdi mdi-close")
     }
+    document.getElementById("myVideo").style.marginLeft = "35px";
 }
 
 function toggleBlur(item) {
@@ -193,6 +194,10 @@ function toggleInfo() {
 
 function rangeVideoChange(value) {
     video.currentTime = value
+}
+
+function changeVideoSize() {
+    myVideo.width(videoSize < 100 ? `${videoSize+=25}%` : `${videoSize+=-75}%`)
 }
 
 function openNav() {
