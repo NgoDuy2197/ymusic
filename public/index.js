@@ -1,13 +1,15 @@
 var elem = document.documentElement;
 var video = document.getElementById("myVideo");
-var btn = document.getElementById("btnPlay");
+var btn = document.getElementById("btnPlayBig");
 var btnToggleMenu = $("#btnToggleMenu")
-var btnPlay = $("#btnPlay")
+var btnPlayBig = $("#btnPlayBig")
 var btnBlur = $("#btnBlur")
 var rangeVideo = $("#rangeVideo")
 var rangeVideoLabel = $("#rangeVideoLabel")
 const myVideo = $("#myVideo")
 const myMenu = $("#myMenu")
+const infoAreaBig = $("#infoAreaBig")
+const infoAreaSmall = $("#infoAreaSmall")
 
 
 // VAR LOCAL
@@ -25,29 +27,30 @@ video.onloadeddata = function (e) {
 }
 video.onplaying = function (e) {
     toggleCountCurrentTime()
-    btnPlay.removeClass("mdi-play-circle-outline")
-    btnPlay.addClass("mdi-pause-circle-outline")
+    btnPlayBig.removeClass("mdi-play-circle-outline")
+    btnPlayBig.addClass("mdi-pause-circle-outline")
 };
 
 function togglePlay() {
     if (video.paused) {
-        btnPlay.removeClass("mdi-play-circle-outline")
-        btnPlay.addClass("mdi-pause-circle-outline")
+        btnPlayBig.removeClass("mdi-play-circle-outline")
+        btnPlayBig.addClass("mdi-pause-circle-outline")
     } else {
-        btnPlay.removeClass("mdi-pause-circle-outline")
-        btnPlay.addClass("mdi-play-circle-outline")
+        btnPlayBig.removeClass("mdi-pause-circle-outline")
+        btnPlayBig.addClass("mdi-play-circle-outline")
     }
 }
 
-function playMusic() {
+function playMusic(item) {
+    var btn = $(`#${item.id}`)
     if (video.paused) {
         video.play();
-        btnPlay.removeClass("mdi-play-circle-outline")
-        btnPlay.addClass("mdi-pause-circle-outline")
+        btn.removeClass("mdi-play-circle-outline")
+        btn.addClass("mdi-pause-circle-outline")
     } else {
         video.pause();
-        btnPlay.removeClass("mdi-pause-circle-outline")
-        btnPlay.addClass("mdi-play-circle-outline")
+        btn.removeClass("mdi-pause-circle-outline")
+        btn.addClass("mdi-play-circle-outline")
     }
 }
 
@@ -154,15 +157,16 @@ function toggleMenu() {
     }
 }
 
-function toggleBlur() {
-    if (btnBlur.hasClass("mdi-blur")) {
+function toggleBlur(item) {
+    var btn = $(`#${item.id}`)
+    if (btn.hasClass("mdi-blur")) {
         myVideo.addClass("blur")
-        btnBlur.addClass("mdi-blur-off")
-        btnBlur.removeClass("mdi-blur")
+        btn.addClass("mdi-blur-off")
+        btn.removeClass("mdi-blur")
     } else {
         myVideo.removeClass("blur")
-        btnBlur.addClass("mdi-blur")
-        btnBlur.removeClass("mdi-blur-off")
+        btn.addClass("mdi-blur")
+        btn.removeClass("mdi-blur-off")
     }
 }
 
@@ -182,13 +186,26 @@ function toggleCountCurrentTime() {
     }, 1000)
 }
 
+function toggleInfo() {
+    infoAreaBig.toggle()
+    infoAreaSmall.toggle()
+}
+
 function rangeVideoChange(value) {
     video.currentTime = value
 }
 
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
 
 
 //INIT ()
+infoAreaSmall.hide()
 toggleMenu()
 playVideo({
     id: "cpvzKPgFOmg",

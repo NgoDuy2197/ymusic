@@ -28,7 +28,7 @@
         </div>
         <!-- MENU SLIDE (END) -->
         <div style="height: 100%;"></div>
-        <div class="menu" id="btnToggleMenu" onclick="toggleMenu()" class="mdi mdi-menu-right">
+        <div class="menu text-shadow" style="position: fixed;" id="btnToggleMenu" onclick="toggleMenu()" class="mdi mdi-menu-right">
         </div>
 
 
@@ -40,23 +40,34 @@
                 </video>
             </div>
 
-            <div class="content">
-                <h1><span id="infoSongName" class="mdi mdi-music-clef-treble">Title</span></h1>
-                <p>
-                    <div id="infoDescribe">Describe</div>
-                    <div id="infoAuthorName">Author</div>
-                </p>
-                <button class="btn btn-play mdi mdi-play-circle-outline" id="btnPlay" onclick="playMusic()"></button>
-                <br/>
-                <div style="margin-top: 5px;">
-                    <span><input id="rangeVideo" name="rangeVideo" type="range" min="1" max="100" value="0" onchange="rangeVideoChange(this.value)"></span>
-                    <span id="rangeVideoLabel" style="line-height: 15px; vertical-align: text-top;">00:00</span>
+            <div id="infoAreaBig" class="info-area">
+                <div class="margin-left-30">
+                    <h3><span class="mdi mdi-music-clef-treble"></span><span id="infoSongName" >Title</span></h3>
+                    <p>
+                        <div id="infoDescribe">Describe</div>
+                        <div id="infoAuthorName">Author</div>
+                    </p>
+                    <button class="btn btn-play mdi mdi-play-circle-outline" id="btnPlayBig" onclick="playMusic(this)"></button>
+                    <br/>
+                    <div style="margin-top: 5px;">
+                        <span><input id="rangeVideo" name="rangeVideo" type="range" min="1" max="100" value="0" onchange="rangeVideoChange(this.value)"></span>
+                        <span id="rangeVideoLabel" style="line-height: 15px; vertical-align: text-top;">00:00</span>
+                    </div>
+                    
+                    <button class="btn" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
+                    <button id="btnFullscreenBig" class="btn btn-fullscreen mdi mdi-cast" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
+                    <button id="btnBlurBig" class="btn btn-fullscreen mdi mdi-blur" title="Làm mờ" onclick="toggleBlur(this)"></button>
+                    <button id="btnVideoFullscreenBig" class="btn btn-fullscreen mdi mdi-fullscreen" title="Video Phóng to" onclick="videoFullscreen()"></button>
                 </div>
-                
-                <button class="btn" style="width:80px;" id="" onclick="">Ngô Duy</button>
-                <button id="btnFullscreen" class="btn btn-fullscreen mdi mdi-cast" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
-                <button id="btnBlur" class="btn btn-fullscreen mdi mdi-blur" title="Làm mờ" onclick="toggleBlur()"></button>
-                <button id="btnVideoFullscreen" class="btn btn-fullscreen mdi mdi-fullscreen" title="Video Phóng to" onclick="videoFullscreen()"></button>
+            </div>
+            <div id="infoAreaSmall" class="info-area-small">
+                <div class="margin-left-30">
+                    <button class="btn text-shadow" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
+                    <button class="btn mdi mdi-play-circle-outline font-size-1rem text-shadow" id="btnPlaySmall" onclick="playMusic(this)"></button>
+                    <button id="btnFullscreenSmall" class="btn btn-fullscreen mdi mdi-cast font-size-1rem text-shadow" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
+                    <button id="btnBlurSmall" class="btn btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ" onclick="toggleBlur(this)"></button>
+                    <button id="btnVideoFullscreenSmall" class="btn btn-fullscreen mdi mdi-fullscreen font-size-1rem text-shadow" title="Video Phóng to" onclick="videoFullscreen()"></button>
+                </div>
             </div>
         </div>
     </div>
