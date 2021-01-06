@@ -3,7 +3,7 @@
 }
 
 html {
-    /* background-color: #111; */
+    background-color: #111;
 }
 
 body {
@@ -273,4 +273,8 @@ body {
 }
 .text-shadow {
     text-shadow: black 2px 2px 5px;
+}
+.title-link {
+    color: white;
+    text-decoration: none;
 }

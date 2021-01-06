@@ -3,7 +3,7 @@
 const fs = require('fs');
 const ytdl = require('ytdl-core')
 const yts = require('yt-search')
-    //
+//
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
@@ -12,47 +12,57 @@ app.get('/', (req, res) => {
     res.sendfile('public/index.html')
 })
 
-app.get('/video/:videoId', async(req, res, next) => {
+app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
     try {
-        const params = req.params,videoId = params.videoId
-        let info = await ytdl.getInfo(videoId, { quality: 'lowestvideo', dlChunkSize:0})
+        const params = req.params,
+            videoId = params.videoId,
+            audioOnly = params.audioOnly,
+            videoQuality = params.videoQuality || 'lowestvideo'
+        let info = await ytdl.getInfo(videoId, {
+            dlChunkSize: 0
+        })
         let vFormats = info.formats
-        // fs.createWriteStream('s_high.mp4')
         let fileSize = info.player_response.streamingData.formats[0].contentLength
-    const range = req.headers.range
-    let start, end
-    // ytdl.downloadFromInfo(info).pipe(fs.createWriteStream('s_high.mp4'))
+        const range = req.headers.range
+        let start, end
+        //INIT
+        let formatFound = ytdl.filterFormats(vFormats, audioOnly);
+        let vformat = ytdl.chooseFormat(formatFound, {
+            quality: videoQuality
+        });
 
-    if (range) {
-        const parts = range.replace(/bytes=/, "").split("-")
-        start = parseInt(parts[0], 10)
-        end = parts[1] ?
-            parseInt(parts[1], 10) :
-            fileSize - 1
+        if (range) {
+            const parts = range.replace(/bytes=/, "").split("-")
+            start = parseInt(parts[0], 10)
+            end = parts[1] ?
+                parseInt(parts[1], 10) :
+                fileSize - 1
 
-        const chunksize = (end - start) + 1
-        const head = {
-            'Content-Range': `bytes ${0}-${end}/${fileSize}`,
-            'Accept-Ranges': 'bytes',
-            'Content-Length': fileSize,
-            'Content-Type': 'video/mp4',
+            const chunksize = (end - start) + 1
+            const head = {
+                'Content-Range': `bytes ${0}-${end}/${fileSize}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': fileSize,
+                'Content-Type': 'video/mp4',
+            }
+            res.writeHead(206, head)
+            ytdl.downloadFromInfo(info, {
+                format: vformat
+            }).pipe(res)
+        } else {
+            const head = {
+                'Content-Length': fileSize,
+                'Content-Type': 'video/mp4',
+            }
+            res.writeHead(200, head)
+            ytdl.downloadFromInfo(info).pipe(res)
         }
-        res.writeHead(206, head)
-        ytdl.downloadFromInfo(info).pipe(res)
-    } else {
-        const head = {
-            'Content-Length': fileSize,
-            'Content-Type': 'video/mp4',
-        }
-        res.writeHead(200, head)
-        ytdl.downloadFromInfo(info).pipe(res)
-    }
     } catch (error) {
         next(error)
     }
 })
 
-app.get('/search', async(req, res, next) => {
+app.get('/search', async (req, res, next) => {
     try {
         let query = req.query,
             sText = query.sText
@@ -64,11 +74,13 @@ app.get('/search', async(req, res, next) => {
     }
 })
 
-app.get('/info/:videoId', async(req, res, next) => {
+app.get('/info/:videoId', async (req, res, next) => {
     try {
         const params = req.params,
             videoId = params.videoId
-        let info = await ytdl.getInfo(videoId, { quality: 'lowestvideo'}),
+        let info = await ytdl.getInfo(videoId, {
+                quality: 'lowestvideo'
+            }),
             relatedVideos = []
         for (let e of info.related_videos) {
             e.videoId = e.id

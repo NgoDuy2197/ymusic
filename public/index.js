@@ -14,8 +14,11 @@ const infoAreaSmall = $("#infoAreaSmall")
 
 
 // VAR LOCAL
+var currentLi
 var nextSongId = ""
 var videoSize = 0
+var videoQuality = 'lowest'
+var playStyle = 'audioandvideo'
 
 
 video.onended = function (e) {
@@ -33,6 +36,12 @@ video.onplaying = function (e) {
     btnPlaySmall.removeClass("mdi-play-circle-outline")
     btnPlaySmall.addClass("mdi-pause-circle-outline")
 };
+
+$("#sVideoName").on('keypress',function(e) {
+    if(e.which == 13) {
+        searchVideo()
+    }
+});
 
 function togglePlay() {
     if (video.paused) {
@@ -86,13 +95,15 @@ function searchVideo() {
 }
 
 function playVideo(li) {
-    $("#infoSongName").html(li.dataset.title)
+    currentLi = li
+    $("#infoSongName").html(`<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`)
     $("#infoDescribe").html(li.dataset.description)
     $("#infoAuthorName").html(li.dataset.authorname)
-    myVideo.find("source").attr("src", `./video/${li.id}`)
+    myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     video.load();
     video.play();
     nextSongId = li.dataset.authorname
+    localStorage.setItem("videoPlaying",JSON.stringify({id:li.id, title:li.dataset.title, description:li.dataset.description, authorname:li.dataset.authorname}))
     $.get(`./info/${li.id}`, function (data) {
         refreshListVideos(data)
     })
@@ -153,25 +164,53 @@ function toggleMenu() {
         btnToggleMenu.removeClass("mdi mdi-close")
         btnToggleMenu.addClass("mdi mdi-menu-right")
     } else {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("app").style.marginLeft = "250px";
+        document.getElementById("mySidenav").style.width = "210px";
+        document.getElementById("app").style.marginLeft = "210px";
         btnToggleMenu.removeClass("mdi mdi-menu-right")
         btnToggleMenu.addClass("mdi mdi-close")
     }
     document.getElementById("myVideo").style.marginLeft = "35px";
 }
 
-function toggleBlur(item) {
-    var btn = $(`#${item.id}`)
-    if (btn.hasClass("mdi-blur")) {
+function toggleBlur() {
+    var btnB = $(`#btnBlurBig`)
+    var btnS = $(`#btnBlurSmall`)
+    if (btnB.hasClass("mdi-blur")) {
         myVideo.addClass("blur")
-        btn.addClass("mdi-blur-off")
-        btn.removeClass("mdi-blur")
+        btnB.addClass("mdi-blur-off")
+        btnS.addClass("mdi-blur-off")
+        btnB.removeClass("mdi-blur")
+        btnS.removeClass("mdi-blur")
     } else {
         myVideo.removeClass("blur")
-        btn.addClass("mdi-blur")
-        btn.removeClass("mdi-blur-off")
+        btnB.addClass("mdi-blur")
+        btnS.addClass("mdi-blur")
+        btnB.removeClass("mdi-blur-off")
+        btnS.removeClass("mdi-blur-off")
     }
+}
+
+function toggleAudioOnly(item) {
+    var btnB = $(`#btnAudiOnlyBig`)
+    var btnS = $(`#btnAudiOnlySmall`)
+    if (btnB.hasClass("mdi-monitor-speaker")) {
+        playStyle = 'audioandvideo'
+        btnB.addClass("mdi-speaker")
+        btnS.addClass("mdi-speaker")
+        btnB.removeClass("mdi-monitor-speaker")
+        btnS.removeClass("mdi-monitor-speaker")
+        btnB.attr('title', "Chỉ nghe nhạc")
+        btnS.attr('title', "Chỉ nghe nhạc")
+    } else {
+        playStyle = 'audioonly'
+        btnB.addClass("mdi-monitor-speaker")
+        btnS.addClass("mdi-monitor-speaker")
+        btnB.removeClass("mdi-speaker")
+        btnS.removeClass("mdi-speaker")
+        btnB.attr('title', "Video và nhạc")
+        btnS.attr('title', "Video và nhạc")
+    }
+    playVideo(currentLi)
 }
 
 function toggleCountCurrentTime() {
@@ -204,7 +243,7 @@ function changeVideoSize() {
 }
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "210px";
   }
   
   function closeNav() {
@@ -215,11 +254,12 @@ function openNav() {
 //INIT ()
 infoAreaSmall.hide()
 toggleMenu()
+const videoPlaying = JSON.parse(localStorage.getItem("videoPlaying")) || {}
 playVideo({
-    id: "cpvzKPgFOmg",
+    id: videoPlaying.id || "cpvzKPgFOmg",
     dataset: {
-        title: "Một điều anh ngại nói ra",
-        description: `<h3>https://www.facebook.com/duynq2197</h3>`,
-        authorname: "Copyright by duynq2197@gmail.com"
+        title: videoPlaying.title || "Một điều anh ngại nói ra",
+        description: videoPlaying.description || `<h3>https://www.facebook.com/duynq2197</h3>`,
+        authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
     }
 })
