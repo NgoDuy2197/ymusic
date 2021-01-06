@@ -3,6 +3,7 @@ var video = document.getElementById("myVideo");
 var btn = document.getElementById("btnPlayBig");
 var btnToggleMenu = $("#btnToggleMenu")
 var btnPlayBig = $("#btnPlayBig")
+var btnPlaySmall = $("#btnPlaySmall")
 var btnBlur = $("#btnBlur")
 var rangeVideo = $("#rangeVideo")
 var rangeVideoLabel = $("#rangeVideoLabel")
@@ -29,6 +30,8 @@ video.onplaying = function (e) {
     toggleCountCurrentTime()
     btnPlayBig.removeClass("mdi-play-circle-outline")
     btnPlayBig.addClass("mdi-pause-circle-outline")
+    btnPlaySmall.removeClass("mdi-play-circle-outline")
+    btnPlaySmall.addClass("mdi-pause-circle-outline")
 };
 
 function togglePlay() {
