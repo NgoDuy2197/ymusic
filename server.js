@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.get('/video/:videoId', async(req, res, next) => {
     try {
         const params = req.params,videoId = params.videoId
-        let info = await ytdl.getInfo(videoId, { quality: 'lowestvideo'})
+        let info = await ytdl.getInfo(videoId, { quality: 'lowestvideo', dlChunkSize:0})
         let vFormats = info.formats
         // fs.createWriteStream('s_high.mp4')
         let fileSize = info.player_response.streamingData.formats[0].contentLength
@@ -32,9 +32,9 @@ app.get('/video/:videoId', async(req, res, next) => {
 
         const chunksize = (end - start) + 1
         const head = {
-            'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+            'Content-Range': `bytes ${0}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
-            'Content-Length': chunksize,
+            'Content-Length': fileSize,
             'Content-Type': 'video/mp4',
         }
         res.writeHead(206, head)
