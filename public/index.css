@@ -99,7 +99,7 @@ body {
 }
 
 .mdi {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .row {
@@ -280,6 +280,4 @@ body {
 }
 .btn-small {
     width: 25px;
-    border: solid 1px white;
-    border-radius: 15px;
 }
