@@ -278,3 +278,8 @@ body {
     color: white;
     text-decoration: none;
 }
+.btn-small {
+    width: 25px;
+    border: solid 1px white;
+    border-radius: 15px;
+}
