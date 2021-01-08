@@ -78,9 +78,7 @@ app.get('/info/:videoId', async (req, res, next) => {
     try {
         const params = req.params,
             videoId = params.videoId
-        let info = await ytdl.getInfo(videoId, {
-                quality: 'lowestvideo'
-            }),
+        let info = await ytdl.getBasicInfo(videoId),
             relatedVideos = []
         for (let e of info.related_videos) {
             e.videoId = e.id

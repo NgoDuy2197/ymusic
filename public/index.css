@@ -284,3 +284,7 @@ body {
 .btn-big {
     width: 30px;
 }
+
+.rotate-right-90 {
+    transform: rotate(90deg) scale(0.5) !important;
+}

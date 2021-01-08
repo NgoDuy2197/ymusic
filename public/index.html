@@ -44,7 +44,7 @@
 
         <div class="right" style="background-color:#ddd;">
             <div class="divVideo">
-                <video id="myVideo" autoplay playsinline onclick="changeVideoSize()">
+                <video id="myVideo" autoplay playsinline>
                     <source src="" type="video/mp4">
                     Your browser does not support HTML5 video.
                 </video>
@@ -66,9 +66,11 @@
                     
                     <button class="btn" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
                     <button id="btnFullscreenBig" class="btn btn-fullscreen mdi mdi-cast btn-big" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
-                    <button id="btnBlurBig" class="btn btn-fullscreen mdi mdi-blur btn-big" title="Làm mờ" onclick="toggleBlur()"></button>
                     <button id="btnAudiOnlyBig" class="btn mdi mdi-speaker btn-big" title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
+                    <button class="btnToggleRotate btn mdi mdi-phone-rotate-landscape btn-big" title="Xoay video" onclick="toggleRotateVideo()"></button>
+                    <button id="btnBlurBig" class="btn btn-fullscreen mdi mdi-blur btn-big" title="Làm mờ" onclick="toggleBlur()"></button>
                     <button id="btnVideoFullscreenBig" class="btn btn-fullscreen mdi mdi-fullscreen btn-big" title="Video Phóng to" onclick="videoFullscreen()"></button>
+                    <button class="btn mdi mdi-relative-scale btn-big" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button>
                 </div>
             </div>
             <div id="infoAreaSmall" class="info-area-small">
@@ -76,9 +78,11 @@
                     <button class="btn text-shadow" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
                     <button class="btn btn-small mdi mdi-play-circle-outline font-size-1rem text-shadow" id="btnPlaySmall" onclick="playMusic(this)"></button>
                     <button id="btnFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-cast font-size-1rem text-shadow" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
-                    <button id="btnBlurSmall" class="btn btn-small btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ" onclick="toggleBlur()"></button>
                     <button id="btnAudiOnlySmall" class="btn btn-small mdi mdi-speaker font-size-1rem text-shadow" title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
+                    <button class="btnToggleRotate btn btn-small mdi mdi-phone-rotate-landscape font-size-1rem text-shadow" title="Xoay video" onclick="toggleRotateVideo()"></button>
+                    <button id="btnBlurSmall" class="btn btn-small btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ" onclick="toggleBlur()"></button>
                     <button id="btnVideoFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-fullscreen font-size-1rem text-shadow" title="Video Phóng to" onclick="videoFullscreen()"></button>
+                    <button class="btn btn-small mdi mdi-relative-scale font-size-1rem text-shadow" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button>
                 </div>
             </div>
         </div>

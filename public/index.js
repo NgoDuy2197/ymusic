@@ -11,6 +11,7 @@ const myVideo = $("#myVideo")
 const myMenu = $("#myMenu")
 const infoAreaBig = $("#infoAreaBig")
 const infoAreaSmall = $("#infoAreaSmall")
+const btnToggleRotate = $(".btnToggleRotate")
 
 
 // VAR LOCAL
@@ -19,7 +20,6 @@ var nextSongId = ""
 var videoSize = 0
 var videoQuality = 'lowest'
 var playStyle = 'audioandvideo'
-
 
 video.onended = function (e) {
     playVideo(myMenu.children()[0])
@@ -80,8 +80,9 @@ function openVideoFullscreen() {
 
 function refreshListVideos(data) {
     myMenu.empty()
+    const isRotated = myVideo.hasClass("rotate-right-90") && "rotate-right-90"
     for (let i of data) {
-        myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="evideo"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail">${i.title.substring(0,20)}</div></div></li>`);
+        myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail">${i.title.substring(0,20)}</div></div></li>`);
     }
 }
 
@@ -211,6 +212,11 @@ function toggleAudioOnly(item) {
         btnS.attr('title', "Video và nhạc")
     }
     playVideo(currentLi)
+}
+function toggleRotateVideo() {
+    btnToggleRotate.toggleClass("mdi-rotate-270")
+    $(".evideo").toggleClass("rotate-right-90")
+    $(".right").toggleClass("rotate-right-90")
 }
 
 function toggleCountCurrentTime() {
