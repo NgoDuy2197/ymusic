@@ -11,7 +11,9 @@ const myVideo = $("#myVideo")
 const myMenu = $("#myMenu")
 const infoAreaBig = $("#infoAreaBig")
 const infoAreaSmall = $("#infoAreaSmall")
+const contentRight = $("#contentRight")
 const btnToggleRotate = $(".btnToggleRotate")
+const divVideo = $(".divVideo")
 
 
 // VAR LOCAL
@@ -20,6 +22,7 @@ var nextSongId = ""
 var videoSize = 0
 var videoQuality = 'lowest'
 var playStyle = 'audioandvideo'
+const arrResolution = ['lowest', '135', '136', '137', 'highest']
 
 video.onended = function (e) {
     playVideo(myMenu.children()[0])
@@ -80,7 +83,7 @@ function openVideoFullscreen() {
 
 function refreshListVideos(data) {
     myMenu.empty()
-    const isRotated = myVideo.hasClass("rotate-right-90") && "rotate-right-90"
+    const isRotated = contentRight.hasClass("rotate-right-90-no-scale") && "rotate-right-90-scale"
     for (let i of data) {
         myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail">${i.title.substring(0,20)}</div></div></li>`);
     }
@@ -176,18 +179,27 @@ function toggleBlur() {
     var btnB = $(`#btnBlurBig`)
     var btnS = $(`#btnBlurSmall`)
     if (btnB.hasClass("mdi-blur")) {
-        myVideo.addClass("blur")
+        divVideo.addClass("blur")
         btnB.addClass("mdi-blur-off")
         btnS.addClass("mdi-blur-off")
         btnB.removeClass("mdi-blur")
         btnS.removeClass("mdi-blur")
     } else {
-        myVideo.removeClass("blur")
+        divVideo.removeClass("blur")
         btnB.addClass("mdi-blur")
         btnS.addClass("mdi-blur")
         btnB.removeClass("mdi-blur-off")
         btnS.removeClass("mdi-blur-off")
     }
+}
+function changeVideoQuality() {
+    var currentQualityIndex = arrResolution.indexOf(videoQuality)
+    if (currentQualityIndex == (arrResolution.length-1)) {
+        videoQuality = arrResolution[0]
+    } else {
+        videoQuality = arrResolution[currentQualityIndex+1]
+    }
+    playVideo(currentLi)
 }
 
 function toggleAudioOnly(item) {
@@ -216,7 +228,7 @@ function toggleRotateVideo() {
     btnToggleRotate.toggleClass("mdi-rotate-270")
     infoAreaBig.toggleClass("translateY-25")
     infoAreaSmall.toggleClass("translateY-25")
-    $(".divVideo").toggleClass("scale-15")
+    divVideo.toggleClass("scale-15")
     $(".evideo").toggleClass("rotate-right-90-scale")
     $(".right").toggleClass("rotate-right-90-no-scale")
     myVideo.toggleClass("margin-left-35px")
