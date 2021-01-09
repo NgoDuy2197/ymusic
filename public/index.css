@@ -285,6 +285,18 @@ body {
     width: 30px;
 }
 
-.rotate-right-90 {
+.rotate-right-90-no-scale {
+    transform: rotate(90deg) translateY(-10vw) !important;
+}
+.rotate-right-90-scale {
     transform: rotate(90deg) scale(0.5) !important;
+}
+.translateY-25 {
+    transform: translateY(-25vh);
+}
+.scale-15 {
+    transform: scale(1.5);
+}
+.margin-left-35px {
+    margin-left:35px;
 }

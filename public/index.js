@@ -170,7 +170,6 @@ function toggleMenu() {
         btnToggleMenu.removeClass("mdi mdi-menu-right")
         btnToggleMenu.addClass("mdi mdi-close")
     }
-    document.getElementById("myVideo").style.marginLeft = "35px";
 }
 
 function toggleBlur() {
@@ -215,8 +214,12 @@ function toggleAudioOnly(item) {
 }
 function toggleRotateVideo() {
     btnToggleRotate.toggleClass("mdi-rotate-270")
-    $(".evideo").toggleClass("rotate-right-90")
-    $(".right").toggleClass("rotate-right-90")
+    infoAreaBig.toggleClass("translateY-25")
+    infoAreaSmall.toggleClass("translateY-25")
+    $(".divVideo").toggleClass("scale-15")
+    $(".evideo").toggleClass("rotate-right-90-scale")
+    $(".right").toggleClass("rotate-right-90-no-scale")
+    myVideo.toggleClass("margin-left-35px")
 }
 
 function toggleCountCurrentTime() {
