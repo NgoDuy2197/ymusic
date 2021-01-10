@@ -44,7 +44,7 @@
 
         <div id="contentRight" class="right" style="background-color:#000;">
             <div class="divVideo">
-                <video id="myVideo" autoplay playsinline onclick="changeVideoSize()">
+                <video id="myVideo" preload="metadata" autoplay playsinline onclick="changeVideoSize()">
                     <source src="" type="video/mp4">
                     Your browser does not support HTML5 video.
                 </video>
@@ -57,7 +57,11 @@
                         <div id="infoDescribe">Describe</div>
                         <div id="infoAuthorName">Author</div>
                     </p>
-                    <button class="btn btn-play mdi mdi-play-circle-outline" id="btnPlayBig" onclick="playMusic(this)"></button>
+                    <div class="btn-group">
+                        <button class="btn btn-hover-bg btn-previous mdi mdi-skip-previous-outline" id="btnPreviousBig" onclick="previousMusic()"></button>
+                        <button class="btn btn-hover-bg btn-play mdi mdi-play-circle-outline" id="btnPlayBig" onclick="playMusic(this)"></button>
+                        <button class="btn btn-hover-bg btn-next mdi mdi-skip-next-outline" id="btnNextBig" onclick="nextMusic()"></button>
+                    </div>
                     <br/>
                     <div style="margin-top: 5px;">
                         <span><input id="rangeVideo" name="rangeVideo" type="range" min="1" max="100" value="0" onchange="rangeVideoChange(this.value)"></span>
@@ -77,13 +81,15 @@
             <div id="infoAreaSmall" class="info-area-small">
                 <div class="margin-left-30">
                     <button class="btn text-shadow" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
+                    <button class="btn btn-small mdi mdi-skip-previous-outline font-size-1rem text-shadow" id="btnPreviousBig" onclick="previousMusic()"></button>
                     <button class="btn btn-small mdi mdi-play-circle-outline font-size-1rem text-shadow" id="btnPlaySmall" onclick="playMusic(this)"></button>
+                    <button class="btn btn-small mdi mdi-skip-next-outline font-size-1rem text-shadow" id="btnNextBig" onclick="nextMusic()"></button>
                     <button id="btnFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-cast font-size-1rem text-shadow" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
                     <button id="btnAudiOnlySmall" class="btn btn-small mdi mdi-speaker font-size-1rem text-shadow" title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
                     <button class="btnToggleRotate btn btn-small mdi mdi-phone-rotate-landscape font-size-1rem text-shadow" title="Xoay video" onclick="toggleRotateVideo()"></button>
                     <button id="btnBlurSmall" class="btn btn-small btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ" onclick="toggleBlur()"></button>
                     <button id="btnVideoFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-fullscreen font-size-1rem text-shadow" title="Video Phóng to" onclick="videoFullscreen()"></button>
-                    <button class="btn btn-small mdi mdi-relative-scale font-size-1rem text-shadow" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button>
+                    <!-- <button class="btn btn-small mdi mdi-relative-scale font-size-1rem text-shadow" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button> -->
                     <!-- <button class="btn btn-small mdi mdi-quality-low font-size-1rem text-shadow" title="Độ phân giải video" onclick="changeVideoQuality()"></button> -->
                 </div>
             </div>

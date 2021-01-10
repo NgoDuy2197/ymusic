@@ -19,13 +19,14 @@ const divVideo = $(".divVideo")
 // VAR LOCAL
 var currentLi
 var nextSongId = ""
+var previousSongId = []
 var videoSize = 0
 var videoQuality = 'lowest'
 var playStyle = 'audioandvideo'
 const arrResolution = ['lowest', '135', '136', '137', 'highest']
 
 video.onended = function (e) {
-    playVideo(myMenu.children()[0])
+    playVideo(myMenu.children()[Math.round(Math.random() * 3)])
     togglePlay()
 };
 video.onloadeddata = function (e) {
@@ -38,10 +39,17 @@ video.onplaying = function (e) {
     btnPlayBig.addClass("mdi-pause-circle-outline")
     btnPlaySmall.removeClass("mdi-play-circle-outline")
     btnPlaySmall.addClass("mdi-pause-circle-outline")
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: 'Title',
+            artist: 'Artist',
+            album: 'Album',
+            artwork: [{ src: 'https://static.centro.org.uk/img/wmca/favicons/android-chrome-192x192.png',   sizes: '192x192',   type: 'image/png' },]
+        });
+    }
 };
-
-$("#sVideoName").on('keypress',function(e) {
-    if(e.which == 13) {
+$("#sVideoName").on('keypress', function (e) {
+    if (e.which == 13) {
         searchVideo()
     }
 });
@@ -68,6 +76,13 @@ function playMusic(item) {
         btn.addClass("mdi-play-circle-outline")
     }
 }
+function nextMusic() {
+    playVideo(nextSongId)
+}
+function previousMusic() {
+    playVideo(previousSongId.pop() || nextSongId)
+    previousSongId.pop()
+}
 
 function openVideoFullscreen() {
     if (video.requestFullscreen) {
@@ -87,6 +102,7 @@ function refreshListVideos(data) {
     for (let i of data) {
         myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail">${i.title.substring(0,20)}</div></div></li>`);
     }
+    nextSongId = myMenu.children()[0]
 }
 
 function searchVideo() {
@@ -99,6 +115,7 @@ function searchVideo() {
 }
 
 function playVideo(li) {
+    if (previousSongId.length < 10) previousSongId.push(currentLi)
     currentLi = li
     $("#infoSongName").html(`<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`)
     $("#infoDescribe").html(li.dataset.description)
@@ -106,8 +123,12 @@ function playVideo(li) {
     myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     video.load();
     video.play();
-    nextSongId = li.dataset.authorname
-    localStorage.setItem("videoPlaying",JSON.stringify({id:li.id, title:li.dataset.title, description:li.dataset.description, authorname:li.dataset.authorname}))
+    localStorage.setItem("videoPlaying", JSON.stringify({
+        id: li.id,
+        title: li.dataset.title,
+        description: li.dataset.description,
+        authorname: li.dataset.authorname
+    }))
     $.get(`./info/${li.id}`, function (data) {
         refreshListVideos(data)
     })
@@ -194,12 +215,13 @@ function toggleBlur() {
         btnS.removeClass("mdi-blur-off")
     }
 }
+
 function changeVideoQuality() {
     var currentQualityIndex = arrResolution.indexOf(videoQuality)
-    if (currentQualityIndex == (arrResolution.length-1)) {
+    if (currentQualityIndex == (arrResolution.length - 1)) {
         videoQuality = arrResolution[0]
     } else {
-        videoQuality = arrResolution[currentQualityIndex+1]
+        videoQuality = arrResolution[currentQualityIndex + 1]
     }
     playVideo(currentLi)
 }
@@ -226,6 +248,7 @@ function toggleAudioOnly(item) {
     }
     playVideo(currentLi)
 }
+
 function toggleRotateVideo() {
     btnToggleRotate.toggleClass("mdi-rotate-270")
     infoAreaBig.toggleClass("translateY-25")
@@ -238,13 +261,14 @@ function toggleRotateVideo() {
 
 function toggleCountCurrentTime() {
     let ite = setInterval(() => {
-        let currentTime = video.currentTime || 0, duration = video.duration
+        let currentTime = video.currentTime || 0,
+            duration = video.duration
         if (duration) rangeVideo.val(currentTime)
         if (currentTime > 0) {
-            let minT = Math.floor(duration / 60).toString().padStart(2,"0")
-            let secT = Math.floor(duration % 60).toString().padStart(2,"0")
-            let minC = Math.floor(currentTime / 60).toString().padStart(2,"0")
-            let secC = Math.floor(currentTime % 60).toString().padStart(2,"0")
+            let minT = Math.floor(duration / 60).toString().padStart(2, "0")
+            let secT = Math.floor(duration % 60).toString().padStart(2, "0")
+            let minC = Math.floor(currentTime / 60).toString().padStart(2, "0")
+            let secC = Math.floor(currentTime % 60).toString().padStart(2, "0")
             let total = ""
             if (video.duration != "Infinity") total = ` / ${minT}:${secT}`
             rangeVideoLabel.text(`${minC}:${secC}${total}`)
@@ -267,11 +291,11 @@ function changeVideoSize() {
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "210px";
-  }
-  
-  function closeNav() {
+}
+
+function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-  }
+}
 
 
 //INIT ()
