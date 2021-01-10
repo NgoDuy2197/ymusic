@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    transition: 0.5s;
 }
 
 html {
@@ -333,4 +334,12 @@ body {
 }
 .margin-left-35px {
     margin-left:35px;
+}
+.transition-5s {
+    transition: 5s;
+}
+.gradient-text {
+    background: -webkit-linear-gradient(#f8005b, #d2dec4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

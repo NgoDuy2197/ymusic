@@ -298,6 +298,15 @@ function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
 
+function toggleDancingVideo(view) {
+    $(view).toggleClass("gradient-text")
+    if (videoIsDacing) clearInterval(videoIsDacing)
+    var videoIsDacing = setInterval(()=>{
+        myVideo.toggleClass("transition-5s")
+        myVideo.width(`${Math.round(Math.random()*20+80)}%`)
+    },2000)
+}
+
 
 //INIT ()
 infoAreaSmall.hide()
