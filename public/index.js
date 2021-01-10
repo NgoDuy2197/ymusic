@@ -17,6 +17,7 @@ const divVideo = $(".divVideo")
 
 
 // VAR LOCAL
+var creator = "https://www.facebook.com/duynq2197"
 var currentLi
 var nextSongId = ""
 var previousSongId = []
@@ -306,7 +307,7 @@ playVideo({
     id: videoPlaying.id || "cpvzKPgFOmg",
     dataset: {
         title: videoPlaying.title || "Một điều anh ngại nói ra",
-        description: videoPlaying.description || `<h3>https://www.facebook.com/duynq2197</h3>`,
+        description: videoPlaying.description || `<h4><a class="title-link" href="${creator}">${creator}</a></h4>`,
         authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
     }
 })
