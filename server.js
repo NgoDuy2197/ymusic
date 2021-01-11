@@ -21,15 +21,15 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         let info = await ytdl.getInfo(videoId, {
             dlChunkSize: 0
         })
-        let vFormats = info.formats
-        let fileSize = info.player_response.streamingData.formats[0].contentLength
+        let formats = info.formats
         const range = req.headers.range
         let start, end
         //INIT
-        let formatFound = ytdl.filterFormats(vFormats, audioOnly);
+        let formatFound = ytdl.filterFormats(formats, audioOnly);
         let vformat = ytdl.chooseFormat(formatFound, {
             quality: videoQuality
         });
+        let fileSize = vformat.contentLength
 
         if (range) {
             const parts = range.replace(/bytes=/, "").split("-")
