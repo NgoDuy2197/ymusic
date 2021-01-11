@@ -21,6 +21,9 @@ var creator = "https://www.facebook.com/duynq2197"
 var currentLi
 var nextSongId = ""
 var previousSongId = []
+var btnActionPause = false
+var videoIsDacing
+let intervalCountCurrTime
 var videoSize = 0
 var videoQuality = 'lowest'
 var playStyle = 'audioandvideo'
@@ -34,6 +37,10 @@ video.onloadeddata = function (e) {
     rangeVideo.val(video.currentTime)
     rangeVideo.attr('max', video.duration)
 }
+video.onpause = function (e) {
+    if (btnActionPause) btnActionPause = false
+    else playVideo(nextSongId)
+}
 video.onplaying = function (e) {
     toggleCountCurrentTime()
     btnPlayBig.removeClass("mdi-play-circle-outline")
@@ -45,10 +52,18 @@ video.onplaying = function (e) {
             title: 'Title',
             artist: 'Artist',
             album: 'Album',
-            artwork: [{ src: 'https://static.centro.org.uk/img/wmca/favicons/android-chrome-192x192.png',   sizes: '192x192',   type: 'image/png' },]
+            artwork: [{
+                src: 'https://static.centro.org.uk/img/wmca/favicons/android-chrome-192x192.png',
+                sizes: '192x192',
+                type: 'image/png'
+            }, ]
         });
     }
 };
+function saveSessionData(e) {
+    localStorage.setItem("videoCurrentTime", video.currentTime)
+}
+window.onbeforeunload=saveSessionData; 
 $("#sVideoName").on('keypress', function (e) {
     if (e.which == 13) {
         searchVideo()
@@ -60,6 +75,7 @@ function togglePlay() {
         btnPlayBig.removeClass("mdi-play-circle-outline")
         btnPlayBig.addClass("mdi-pause-circle-outline")
     } else {
+        btnActionPause = true
         btnPlayBig.removeClass("mdi-pause-circle-outline")
         btnPlayBig.addClass("mdi-play-circle-outline")
     }
@@ -72,14 +88,17 @@ function playMusic(item) {
         btn.removeClass("mdi-play-circle-outline")
         btn.addClass("mdi-pause-circle-outline")
     } else {
+        btnActionPause = true
         video.pause();
         btn.removeClass("mdi-pause-circle-outline")
         btn.addClass("mdi-play-circle-outline")
     }
 }
+
 function nextMusic() {
     playVideo(nextSongId)
 }
+
 function previousMusic() {
     playVideo(previousSongId.pop() || nextSongId)
     previousSongId.pop()
@@ -261,7 +280,8 @@ function toggleRotateVideo() {
 }
 
 function toggleCountCurrentTime() {
-    let ite = setInterval(() => {
+    clearInterval(intervalCountCurrTime)
+    intervalCountCurrTime = setInterval(() => {
         let currentTime = video.currentTime || 0,
             duration = video.duration
         if (duration) rangeVideo.val(currentTime)
@@ -299,12 +319,16 @@ function closeNav() {
 }
 
 function toggleDancingVideo(view) {
-    $(view).toggleClass("gradient-text")
-    if (videoIsDacing) clearInterval(videoIsDacing)
-    var videoIsDacing = setInterval(()=>{
+    if ($(view).hasClass("gradient-text")) {
+        $(view).removeClass("gradient-text")
+        if (videoIsDacing) clearInterval(videoIsDacing)
+    } else {
+        $(view).addClass("gradient-text")
         myVideo.toggleClass("transition-5s")
-        myVideo.width(`${Math.round(Math.random()*20+80)}%`)
-    },2000)
+        videoIsDacing = setInterval(() => {
+            myVideo.width(`${Math.round(Math.random()*30+70)}%`)
+        }, 2000)
+    }
 }
 
 
@@ -320,3 +344,4 @@ playVideo({
         authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
     }
 })
+video.currentTime = localStorage.getItem("videoCurrentTime") || 0

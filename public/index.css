@@ -336,7 +336,7 @@ body {
     transition: 5s;
 }
 .gradient-text {
-    background: -webkit-linear-gradient(#f8005b, #d2dec4);
+    background: -webkit-linear-gradient(#0011f6, #ff00cf);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
