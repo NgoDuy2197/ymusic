@@ -30,7 +30,7 @@ var playStyle = 'audioandvideo'
 const arrResolution = ['lowest', '135', '136', '137', 'highest']
 
 video.onended = function (e) {
-    playVideo(myMenu.children()[Math.round(Math.random() * 3)])
+    playVideo(myMenu.children()[Math.round(Math.random() * 10)])
     togglePlay()
 };
 video.onloadeddata = function (e) {
@@ -39,7 +39,7 @@ video.onloadeddata = function (e) {
 }
 video.onpause = function (e) {
     if (btnActionPause) btnActionPause = false
-    else playVideo(nextSongId)
+    else playVideo(getRandomVideo(10))
 }
 video.onplaying = function (e) {
     toggleCountCurrentTime()
@@ -81,6 +81,10 @@ function togglePlay() {
     }
 }
 
+function getRandomVideo(iint) {
+    return myMenu.children()[Math.round(Math.random() * iint)]
+}
+
 function playMusic(item) {
     var btn = $(`#${item.id}`)
     if (video.paused) {
@@ -100,7 +104,7 @@ function nextMusic() {
 }
 
 function previousMusic() {
-    playVideo(previousSongId.pop() || nextSongId)
+    playVideo(previousSongId.pop() || getRandomVideo(5))
     previousSongId.pop()
 }
 
