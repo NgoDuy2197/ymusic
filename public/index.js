@@ -230,23 +230,27 @@ jQuery(document).ready(function ($) {
     }
 
     function toggleBlur() {
-        var btnB = $(`#btnBlurBig`)
-        var btnS = $(`#btnBlurSmall`)
-        if (btnB.hasClass("mdi-blur")) {
-            divVideo.addClass("blur")
-            // myVideo.addClass("blur")
-            btnB.addClass("mdi-blur-off")
-            btnS.addClass("mdi-blur-off")
-            btnB.removeClass("mdi-blur")
-            btnS.removeClass("mdi-blur")
-        } else {
-            divVideo.removeClass("blur")
-            // myVideo.removeClass("blur")
-            btnB.addClass("mdi-blur")
-            btnS.addClass("mdi-blur")
-            btnB.removeClass("mdi-blur-off")
-            btnS.removeClass("mdi-blur-off")
-        }
+        try {
+            var btnB = $(`#btnBlurBig`)
+            var btnS = $(`#btnBlurSmall`)
+            if (btnB.hasClass("mdi-blur")) {
+                alert("has mdi-blur")
+                divVideo.addClass("blur")
+                // myVideo.addClass("blur")
+                btnB.addClass("mdi-blur-off")
+                btnS.addClass("mdi-blur-off")
+                btnB.removeClass("mdi-blur")
+                btnS.removeClass("mdi-blur")
+            } else {
+                alert("hasn't mdi-blur")
+                divVideo.removeClass("blur")
+                // myVideo.removeClass("blur")
+                btnB.addClass("mdi-blur")
+                btnS.addClass("mdi-blur")
+                btnB.removeClass("mdi-blur-off")
+                btnS.removeClass("mdi-blur-off")
+            }
+        } catch(e) {alert(e)}
     }
 
     function changeVideoQuality() {
