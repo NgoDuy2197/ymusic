@@ -33,8 +33,6 @@ body {
 }
 
 .blur {
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
     transform: scale(1.1);
 }
 
