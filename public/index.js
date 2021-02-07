@@ -89,7 +89,10 @@ function getRandomVideo(iint) {
 function playMusic(item) {
     var btn = $(`#${item.id}`)
     if (video.paused) {
-        video.play();
+        video.play().catch(e=>{
+            alert("Hi! OK to Play")
+            video.play()
+        })
         btn.removeClass("mdi-play-circle-outline")
         btn.addClass("mdi-pause-circle-outline")
     } else {
@@ -352,13 +355,5 @@ try {
     })
     video.currentTime = localStorage.getItem("videoCurrentTime") || 0
 } catch(e) {
-    alert("Hi. OK to Play")
-    playVideo({
-        id: videoPlaying.id || "cpvzKPgFOmg",
-        dataset: {
-            title: videoPlaying.title || "Một điều anh ngại nói ra",
-            description: videoPlaying.description || `<h4><a class="title-link" target="_blank" href="${creator}">${creator}</a></h4>`,
-            authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
-        }
-    })
+    nextMusic()
 }
