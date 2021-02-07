@@ -1,5 +1,4 @@
-
-const $ = JQuery.default;
+const $=jQuery.noConflict();
 var elem = document.documentElement;
 var video = document.getElementById("myVideo");
 var btn = document.getElementById("btnPlayBig");
