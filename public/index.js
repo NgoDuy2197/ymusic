@@ -150,7 +150,10 @@ function playVideo(li) {
     $("#infoAuthorName").html(li.dataset.authorname)
     myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     video.load();
-    video.play();
+    video.play().catch(e=>{
+        alert("Hi! OK to Play")
+        video.play()
+    })
     localStorage.setItem("videoPlaying", JSON.stringify({
         id: li.id,
         title: li.dataset.title,
