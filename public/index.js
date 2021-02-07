@@ -87,29 +87,21 @@ function getRandomVideo(iint) {
 }
 
 function playMusic(item) {
-    try {
-        var btn = $(`#${item.id}`)
-        if (video.paused) {
-            video.play();
-            btn.removeClass("mdi-play-circle-outline")
-            btn.addClass("mdi-pause-circle-outline")
-        } else {
-            btnActionPause = true
-            video.pause();
-            btn.removeClass("mdi-pause-circle-outline")
-            btn.addClass("mdi-play-circle-outline")
-        }
-    } catch (e) {
-        alert(e)
+    var btn = $(`#${item.id}`)
+    if (video.paused) {
+        video.play();
+        btn.removeClass("mdi-play-circle-outline")
+        btn.addClass("mdi-pause-circle-outline")
+    } else {
+        btnActionPause = true
+        video.pause();
+        btn.removeClass("mdi-pause-circle-outline")
+        btn.addClass("mdi-play-circle-outline")
     }
 }
 
 function nextMusic() {
-    try {
-        playVideo(nextSongId)
-    } catch (e) {
-        alert(e)
-    }
+    playVideo(nextSongId)
 }
 
 function previousMusic() {
@@ -230,27 +222,23 @@ function toggleMenu() {
 }
 
 function toggleBlur() {
-    try {
-        var btnB = $(`#btnBlurBig`)
-        var btnS = $(`#btnBlurSmall`)
-        if (btnB.hasClass("mdi-blur")) {
-            alert("has mdi-blur")
-            divVideo.addClass("blur")
-            // myVideo.addClass("blur")
-            btnB.addClass("mdi-blur-off")
-            btnS.addClass("mdi-blur-off")
-            btnB.removeClass("mdi-blur")
-            btnS.removeClass("mdi-blur")
-        } else {
-            alert("hasn't mdi-blur")
-            divVideo.removeClass("blur")
-            // myVideo.removeClass("blur")
-            btnB.addClass("mdi-blur")
-            btnS.addClass("mdi-blur")
-            btnB.removeClass("mdi-blur-off")
-            btnS.removeClass("mdi-blur-off")
-        }
-    } catch(e) {alert(e)}
+    var btnB = $(`#btnBlurBig`)
+    var btnS = $(`#btnBlurSmall`)
+    if (btnB.hasClass("mdi-blur")) {
+        divVideo.addClass("blur")
+        // myVideo.addClass("blur")
+        btnB.addClass("mdi-blur-off")
+        btnS.addClass("mdi-blur-off")
+        btnB.removeClass("mdi-blur")
+        btnS.removeClass("mdi-blur")
+    } else {
+        divVideo.removeClass("blur")
+        // myVideo.removeClass("blur")
+        btnB.addClass("mdi-blur")
+        btnS.addClass("mdi-blur")
+        btnB.removeClass("mdi-blur-off")
+        btnS.removeClass("mdi-blur-off")
+    }
 }
 
 function changeVideoQuality() {
