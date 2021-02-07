@@ -349,4 +349,15 @@ playVideo({
         authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
     }
 })
-video.currentTime = localStorage.getItem("videoCurrentTime") || 0
+try {
+    video.currentTime = localStorage.getItem("videoCurrentTime") || 0
+} catch(e) {
+    playVideo({
+        id: videoPlaying.id || "cpvzKPgFOmg",
+        dataset: {
+            title: videoPlaying.title || "Một điều anh ngại nói ra",
+            description: videoPlaying.description || `<h4><a class="title-link" target="_blank" href="${creator}">${creator}</a></h4>`,
+            authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
+        }
+    })
+}
