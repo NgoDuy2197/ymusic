@@ -86,21 +86,29 @@ function getRandomVideo(iint) {
 }
 
 function playMusic(item) {
-    var btn = $(`#${item.id}`)
-    if (video.paused) {
-        video.play();
-        btn.removeClass("mdi-play-circle-outline")
-        btn.addClass("mdi-pause-circle-outline")
-    } else {
-        btnActionPause = true
-        video.pause();
-        btn.removeClass("mdi-pause-circle-outline")
-        btn.addClass("mdi-play-circle-outline")
+    try {
+        var btn = $(`#${item.id}`)
+        if (video.paused) {
+            video.play();
+            btn.removeClass("mdi-play-circle-outline")
+            btn.addClass("mdi-pause-circle-outline")
+        } else {
+            btnActionPause = true
+            video.pause();
+            btn.removeClass("mdi-pause-circle-outline")
+            btn.addClass("mdi-play-circle-outline")
+        }
+    } catch (e) {
+        alert(e)
     }
 }
 
 function nextMusic() {
-    playVideo(nextSongId)
+    try {
+        playVideo(nextSongId)
+    } catch (e) {
+        alert(e)
+    }
 }
 
 function previousMusic() {
