@@ -1,4 +1,4 @@
-import * as JQuery from "jquery";
+
 const $ = JQuery.default;
 var elem = document.documentElement;
 var video = document.getElementById("myVideo");
