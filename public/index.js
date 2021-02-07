@@ -89,10 +89,7 @@ function getRandomVideo(iint) {
 function playMusic(item) {
     var btn = $(`#${item.id}`)
     if (video.paused) {
-        video.play().catch(e=>{
-            alert("Hi! OK to Play")
-            video.play()
-        })
+        video.play()
         btn.removeClass("mdi-play-circle-outline")
         btn.addClass("mdi-pause-circle-outline")
     } else {
@@ -150,10 +147,7 @@ function playVideo(li) {
     $("#infoAuthorName").html(li.dataset.authorname)
     myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     video.load();
-    video.play().catch(e=>{
-        alert("Hi! OK to Play")
-        video.play()
-    })
+    video.play()
     localStorage.setItem("videoPlaying", JSON.stringify({
         id: li.id,
         title: li.dataset.title,
