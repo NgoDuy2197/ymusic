@@ -182,7 +182,7 @@ function playVideo(li) {
            if (this.status === 200) {
               var videoBlob = this.response
               var vid = URL.createObjectURL(videoBlob), currentTimePlay = video.currentTime
-              video.src = vid
+            //   video.src = vid
               video.currentTime = currentTimePlay
               infoSongName.text(`${li.dataset.title}`)
               infoSongName.removeClass("loading")
