@@ -17,7 +17,8 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         const params = req.params,
             videoId = params.videoId,
             audioOnly = params.audioOnly,
-            videoQuality = params.videoQuality || 'lowestvideo'
+            videoQuality = params.videoQuality || 'lowest',
+            contentType = audioOnly == "audioonly" ? "audio/mpeg" : "video/mp4"
         let info = await ytdl.getInfo(videoId, {
             dlChunkSize: 0
         })
@@ -34,7 +35,7 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
             });
         } catch (error) {
             vformat = ytdl.chooseFormat(formatFound, {
-                quality: "lowestvideo"
+                quality: "lowest"
             });
         }
         let fileSize = parseInt(vformat.contentLength) || 1
@@ -52,7 +53,7 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
                 'Content-Range': `bytes ${0}-${start}/${end}`,
                 'Accept-Ranges': 'bytes',
                 'Content-Length': fileSize,
-                'Content-Type': 'video/mp4',
+                'Content-Type': contentType,
             }
             res.writeHead(206, head)
             ytdl.downloadFromInfo(info, {
