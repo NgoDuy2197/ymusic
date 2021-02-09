@@ -26,21 +26,30 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         let start, end
         //INIT
         let formatFound = ytdl.filterFormats(formats, audioOnly);
-        let vformat = ytdl.chooseFormat(formatFound, {
-            quality: videoQuality
-        });
-        let fileSize = vformat.contentLength
+        let vformat
+        try {
+            vformat = ytdl.chooseFormat(formatFound, {
+                // quality: videoQuality
+                quality: "18"
+            });
+        } catch (error) {
+            vformat = ytdl.chooseFormat(formatFound, {
+                quality: "lowestvideo"
+            });
+        }
+        let fileSize = parseInt(vformat.contentLength) || 1
 
         if (range) {
             const parts = range.replace(/bytes=/, "").split("-")
-            start = parseInt(parts[0], 10)
+            start = parseInt(parts[0] || 0, 10)
             end = parts[1] ?
                 parseInt(parts[1], 10) :
                 fileSize - 1
 
+                // 'Content-Range': `bytes ${0}-${end}/${fileSize}`,
             const chunksize = (end - start) + 1
             const head = {
-                'Content-Range': `bytes ${0}-${end}/${fileSize}`,
+                'Content-Range': `bytes ${0}-${start}/${end}`,
                 'Accept-Ranges': 'bytes',
                 'Content-Length': fileSize,
                 'Content-Type': 'video/mp4',

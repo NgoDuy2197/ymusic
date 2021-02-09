@@ -333,3 +333,11 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.loading {
+    color: #b639c7;
+}
+
+.evideo > img {
+    filter: blur(1px);
+}
