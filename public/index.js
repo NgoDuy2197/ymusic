@@ -143,9 +143,8 @@ function searchVideo() {
 }
 
 function stopAndClear() {
-    console.log("STOP AND CLEAR")
     window.stop()
-    URL.revokeObjectURL(location.href)
+    URL.revokeObjectURL(video.src)
     thisVideoIsFullLoading = false
 }
 function playVideo(li) {
@@ -166,14 +165,14 @@ function playVideo(li) {
         authorname: li.dataset.authorname
     }))
 
-    console.log("LOad partical")
     video.src = `./video/${li.id}/${playStyle}/${videoQuality}`
+    
     // myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     // video.load()
     // video.play()
-    // TEST
+    // TEST 
+    //  && playStyle == "audioandvideo"
     if (!thisVideoIsFullLoading) {
-        console.log("LOad Full")
         thisVideoIsFullLoading = true
         var req = new XMLHttpRequest()
         req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
@@ -181,8 +180,8 @@ function playVideo(li) {
         req.onload = function() {
            if (this.status === 200) {
               var videoBlob = this.response
-              var vid = URL.createObjectURL(videoBlob), currentTimePlay = video.currentTime
-            //   video.src = vid
+              var vid = URL.createObjectURL(videoBlob), currentTimePlay = 0//video.currentTime
+              video.src = vid
               video.currentTime = currentTimePlay
               infoSongName.text(`${li.dataset.title}`)
               infoSongName.removeClass("loading")
@@ -190,9 +189,12 @@ function playVideo(li) {
            }
         }
         req.onerror = function() {
-            console.log("ERROR")
+            console.error("ERROR")
         }
         req.send()
+    } else {
+        infoSongName.text(`${li.dataset.title}`)
+        infoSongName.removeClass("loading")
     }
     // TEST+ END
 

@@ -16,9 +16,16 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
     try {
         const params = req.params,
             videoId = params.videoId,
-            audioOnly = params.audioOnly,
-            videoQuality = params.videoQuality || 'lowest',
-            contentType = audioOnly == "audioonly" ? "audio/mpeg" : "video/mp4"
+            audioOnly = params.audioOnly
+        let videoQuality = params.videoQuality || 'lowest', contentType = "video/mp4"
+        if (audioOnly == "audioonly") {
+            videoQuality = 'lowest'
+            contentType = "audio/mpeg"
+        } else {
+            // videoQuality = params.videoQuality || 'lowest'
+            videoQuality = "18"
+            contentType = "video/mp4"
+        }
         let info = await ytdl.getInfo(videoId, {
             dlChunkSize: 0
         })
@@ -30,8 +37,7 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         let vformat
         try {
             vformat = ytdl.chooseFormat(formatFound, {
-                // quality: videoQuality
-                quality: "18"
+                quality: videoQuality
             });
         } catch (error) {
             vformat = ytdl.chooseFormat(formatFound, {
@@ -62,10 +68,12 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         } else {
             const head = {
                 'Content-Length': fileSize,
-                'Content-Type': 'video/mp4',
+                'Content-Type': contentType,
             }
             res.writeHead(200, head)
-            ytdl.downloadFromInfo(info).pipe(res)
+            ytdl.downloadFromInfo(info, {
+                format: vformat
+            }).pipe(res)
         }
     } catch (error) {
         next(error)
