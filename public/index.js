@@ -173,7 +173,6 @@ function playVideo(li) {
     // video.play()
     // TEST 
     if (!thisVideoIsFullLoading) {
-        console.log("load full")
         thisVideoIsFullLoading = true
         var req = new XMLHttpRequest()
         req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
