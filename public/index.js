@@ -154,7 +154,8 @@ function playVideo(li) {
     let infoSongName = $("#infoSongName")
     if (previousSongId.length < 10) previousSongId.push(currentLi)
     currentLi = li
-    infoSongName.html(`${loadingTag}<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`)
+    let isnHTML = `<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`
+    infoSongName.html(`${loadingTag}${isnHTML}`)
     infoSongName.addClass("loading")
     $("#infoDescribe").html(li.dataset.description)
     $("#infoAuthorName").html(li.dataset.authorname)
@@ -171,8 +172,8 @@ function playVideo(li) {
     // video.load()
     // video.play()
     // TEST 
-    //  && playStyle == "audioandvideo"
     if (!thisVideoIsFullLoading) {
+        console.log("load full")
         thisVideoIsFullLoading = true
         var req = new XMLHttpRequest()
         req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
@@ -180,10 +181,10 @@ function playVideo(li) {
         req.onload = function() {
            if (this.status === 200) {
               var videoBlob = this.response
-              var vid = URL.createObjectURL(videoBlob), currentTimePlay = 0//video.currentTime
+              var vid = URL.createObjectURL(videoBlob), currentTimePlay = video.currentTime
               video.src = vid
               video.currentTime = currentTimePlay
-              infoSongName.text(`${li.dataset.title}`)
+              infoSongName.html(`${isnHTML}`)
               infoSongName.removeClass("loading")
               thisVideoIsFullLoading = false
            }
