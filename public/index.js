@@ -38,6 +38,9 @@ var thisVideoIsFullLoading = false
 // STORAGE KEY
 const storageAutoComplete = "autocomplete"
 
+window.onload = function() {
+    (adsbygoogle = window.adsbygoogle || []).push({});
+}
 video.onended = function (e) {
     playVideo(myMenu.children()[Math.round(Math.random() * 10)])
     togglePlay()
