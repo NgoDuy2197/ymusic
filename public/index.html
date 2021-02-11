@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRXJY0Y3ZZ"></script>
     <script>
@@ -17,7 +18,7 @@
         gtag('js', new Date());
         gtag('config', 'G-MRXJY0Y3ZZ');
     </script>
-    <script data-ad-client="ca-pub-9578687010789825" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- <script data-ad-client="ca-pub-9578687010789825" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
     </head>
 
 <body>
@@ -28,10 +29,13 @@
             <div>
                 <span class="mdi mdi-music-box white-text btn" onclick="toggleDancingVideo(this)">MUSIC</span>
             </div>
+            <form autocomplete="off" action="#duy">
             <div style="width: 200px;">
-                <span><input id="sVideoName" autocomplete="on" style="width: 152px;" class="bg-black white-text" type="text" placeholder="Search.." autocomplete=""></span>
+                <span><input id="sVideoName" type="search" results=5 autocomplete="off" style="width: 152px;" class="bg-black white-text" placeholder="Search.." autocomplete=""></span>
                 <span><button class="btn btn-search mdi mdi-magnify" id="btnSearch" onclick="searchVideo()"></button></span>
+                <div style="height: 5px;"></div>
             </div>
+            </form>
             <div class="menu-area">
                 <ul id="myMenu">
                 </ul>

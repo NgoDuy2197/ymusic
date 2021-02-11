@@ -1,4 +1,4 @@
-const $=jQuery.noConflict();
+const $ = jQuery.noConflict();
 var elem = document.documentElement;
 var video = document.getElementById("myVideo");
 var btn = document.getElementById("btnPlayBig");
@@ -15,12 +15,14 @@ const infoAreaSmall = $("#infoAreaSmall")
 const contentRight = $("#contentRight")
 const btnToggleRotate = $(".btnToggleRotate")
 const divVideo = $(".divVideo")
+const sVideoName = $("#sVideoName")
 
 
 // VAR LOCAL
 var creator = "https://www.facebook.com/duynq2197"
 var currentLi
 var nextSongId = ""
+var listAutocomplete = []
 var previousSongId = []
 var btnActionPause = false
 var videoIsDacing
@@ -31,6 +33,10 @@ var playStyle = 'audioandvideo'
 const arrResolution = ['lowest', '135', '136', '137', 'highest']
 var loadingTag = "<span class='mdi mdi-spin mdi-sync'/>"
 var thisVideoIsFullLoading = false
+
+
+// STORAGE KEY
+const storageAutoComplete = "autocomplete"
 
 video.onended = function (e) {
     playVideo(myMenu.children()[Math.round(Math.random() * 10)])
@@ -63,13 +69,26 @@ video.onplaying = function (e) {
         });
     }
 };
-function saveSessionData(e) {
-    localStorage.setItem("videoCurrentTime", video.currentTime)
+function getAutoCompleteArr() {
+    return JSON.parse(storageGet(storageAutoComplete) || "[]")
 }
-window.onbeforeunload=saveSessionData; 
-$("#sVideoName").on('keypress', function (e) {
+function storagePut(key,value) {
+    localStorage.setItem(key, value)
+}
+function storageGet(key) {
+    return localStorage.getItem(key)
+}
+function saveSessionData(e) {
+    storagePut("videoCurrentTime", video.currentTime)
+}
+window.onbeforeunload = saveSessionData;
+sVideoName.on('keypress', function (e) {
     if (e.which == 13) {
         searchVideo()
+    } else {
+        sVideoName.autocomplete({
+            source: getAutoCompleteArr()
+        })
     }
 });
 
@@ -134,12 +153,17 @@ function refreshListVideos(data) {
 }
 
 function searchVideo() {
-    const sText = $("#sVideoName").val()
+    const sText = sVideoName.val()
+    let arrAutoComplete = getAutoCompleteArr()
+    if (arrAutoComplete.length > 19) arrAutoComplete = arrAutoComplete.slice(1)
+    arrAutoComplete.push(sText)
+    storagePut(storageAutoComplete,JSON.stringify(arrAutoComplete))
     $.get("./search", {
         sText
     }, function (data) {
         refreshListVideos(data)
     })
+
 }
 
 function stopAndClear() {
@@ -147,6 +171,7 @@ function stopAndClear() {
     URL.revokeObjectURL(video.src)
     thisVideoIsFullLoading = false
 }
+
 function playVideo(li) {
     // STOP and Clear Cache
     stopAndClear()
@@ -159,7 +184,7 @@ function playVideo(li) {
     infoSongName.addClass("loading")
     $("#infoDescribe").html(li.dataset.description)
     $("#infoAuthorName").html(li.dataset.authorname)
-    localStorage.setItem("videoPlaying", JSON.stringify({
+    storagePut("videoPlaying", JSON.stringify({
         id: li.id,
         title: li.dataset.title,
         description: li.dataset.description,
@@ -167,7 +192,7 @@ function playVideo(li) {
     }))
 
     video.src = `./video/${li.id}/${playStyle}/${videoQuality}`
-    
+
     // myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
     // video.load()
     // video.play()
@@ -177,18 +202,19 @@ function playVideo(li) {
         var req = new XMLHttpRequest()
         req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
         req.responseType = 'blob'
-        req.onload = function() {
-           if (this.status === 200) {
-              var videoBlob = this.response
-              var vid = URL.createObjectURL(videoBlob), currentTimePlay = video.currentTime
-              video.src = vid
-              video.currentTime = currentTimePlay
-              infoSongName.html(`${isnHTML}`)
-              infoSongName.removeClass("loading")
-              thisVideoIsFullLoading = false
-           }
+        req.onload = function () {
+            if (this.status === 200) {
+                var videoBlob = this.response
+                var vid = URL.createObjectURL(videoBlob),
+                    currentTimePlay = video.currentTime
+                video.src = vid
+                video.currentTime = currentTimePlay
+                infoSongName.html(`${isnHTML}`)
+                infoSongName.removeClass("loading")
+                thisVideoIsFullLoading = false
+            }
         }
-        req.onerror = function() {
+        req.onerror = function () {
             console.error("ERROR")
         }
         req.send()
@@ -386,7 +412,7 @@ function toggleDancingVideo(view) {
 try {
     infoAreaSmall.hide()
     toggleMenu()
-    const videoPlaying = JSON.parse(localStorage.getItem("videoPlaying")) || {}
+    const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {}
     playVideo({
         id: videoPlaying.id || "cpvzKPgFOmg",
         dataset: {
@@ -395,7 +421,11 @@ try {
             authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
         }
     })
-    video.currentTime = localStorage.getItem("videoCurrentTime") || 0
-} catch(e) {
+    video.currentTime = storageGet("videoCurrentTime") || 0
+
+    sVideoName.autocomplete({
+        source: getAutoCompleteArr()
+    })
+} catch (e) {
     nextMusic()
 }
