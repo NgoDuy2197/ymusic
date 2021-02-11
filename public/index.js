@@ -69,18 +69,27 @@ video.onplaying = function (e) {
         });
     }
 };
+// INIT FUNCTION
+function removeAccents(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 function getAutoCompleteArr() {
     return JSON.parse(storageGet(storageAutoComplete) || "[]")
 }
-function storagePut(key,value) {
+
+function storagePut(key, value) {
     localStorage.setItem(key, value)
 }
+
 function storageGet(key) {
     return localStorage.getItem(key)
 }
+
 function saveSessionData(e) {
     storagePut("videoCurrentTime", video.currentTime)
 }
+//
 window.onbeforeunload = saveSessionData;
 sVideoName.on('keypress', function (e) {
     if (e.which == 13) {
@@ -153,11 +162,12 @@ function refreshListVideos(data) {
 }
 
 function searchVideo() {
-    const sText = sVideoName.val()
+    const sText = sVideoName.val(),
+        rsText = removeAccents(sText)
     let arrAutoComplete = getAutoCompleteArr()
     if (arrAutoComplete.length > 19) arrAutoComplete = arrAutoComplete.slice(1)
-    arrAutoComplete.push(sText)
-    storagePut(storageAutoComplete,JSON.stringify(arrAutoComplete))
+    if (!arrAutoComplete.some(e => e.includes(rsText))) arrAutoComplete.push(rsText)
+    storagePut(storageAutoComplete, JSON.stringify(arrAutoComplete))
     $.get("./search", {
         sText
     }, function (data) {
