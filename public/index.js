@@ -381,9 +381,20 @@ function toggleCountCurrentTime() {
     }, 1000)
 }
 
+function toggleControls() {
+    if (video.hasAttribute("controls")) {
+        video.removeAttribute("controls")
+        $("#myVideo").width("100%")
+    } else {
+        video.setAttribute("controls", "controls")
+        $("#myVideo").width("68%")
+    }
+}
+
 function toggleInfo() {
     infoAreaBig.toggle()
     infoAreaSmall.toggle()
+    toggleControls()
 }
 
 function rangeVideoChange(value) {
