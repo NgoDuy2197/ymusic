@@ -402,6 +402,12 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.img-container:hover > .img-text-centered {
+    /* background-color: #a0a0a09c; */
+    color: #fff;
+    background-color: #000000c6;
+    /* text-shadow: black 2px 2px 5px; */
+}
 
 .ads-area {
     width: 250px;
