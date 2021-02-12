@@ -402,3 +402,13 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.ads-area {
+    width: 250px;
+    height: 250px;
+    background-color: #111;
+    max-height: 18%;
+    bottom: 0;
+    position: absolute;
+    box-shadow: 0 6px 3px 9px #000000b0;
+}
