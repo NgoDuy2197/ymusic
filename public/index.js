@@ -154,7 +154,7 @@ function refreshListVideos(data) {
     myMenu.empty()
     const isRotated = contentRight.hasClass("rotate-right-90-no-scale") && "rotate-right-90-scale" || ""
     for (let i of data) {
-        myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail">${i.title.substring(0,20)}</div></div></li>`);
+        myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="img-container evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail img-text-centered">${i.title.substring(0,20)}</div></div></li>`);
     }
     nextSongId = myMenu.children()[0]
     myMenu.scrollTop(0)

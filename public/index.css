@@ -52,6 +52,7 @@ body {
     width: 100%;
     padding: 20px;
 }
+
 .info-area-small {
     position: fixed;
     bottom: 0;
@@ -84,7 +85,7 @@ body {
     color: #ffffff;
     bottom: -12px;
     position: absolute;
-    left:30px;
+    left: 30px;
 }
 
 .btn-next {
@@ -92,7 +93,7 @@ body {
     color: #ffffff;
     bottom: -12px;
     position: absolute;
-    left:80px;
+    left: 80px;
 }
 
 .btn-previous {
@@ -100,7 +101,7 @@ body {
     color: #ffffff;
     bottom: -12px;
     position: absolute;
-    left:0px;
+    left: 0px;
 }
 
 .btn-fullscreen {
@@ -163,7 +164,7 @@ body {
 
 .menu-area {
     position: absolute;
-    height: 80%;
+    height: 70%;
     box-shadow: 0 4px 2px -2px #888;
 }
 
@@ -194,7 +195,7 @@ img {
 
 img:hover {
     box-shadow: 0 0 2px 1px #008cba80;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .thumbnail {
@@ -205,7 +206,7 @@ img:hover {
     background-color: #1e1d1d;
     color: #888;
     padding: 10px 0px 10px 0px;
-    box-shadow: 0px -5px #1e1d1d;
+    /* box-shadow: 0px -5px #1e1d1d; */
 }
 
 .white-text {
@@ -216,19 +217,19 @@ img:hover {
     background-color: black;
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background-color: #1e1d1d;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #888;
 }
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
@@ -254,33 +255,39 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 5px;
-  }
-  
-  .sidenav a {
+}
+
+.sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s;
-  }
-  
-  .sidenav a:hover {
+}
+
+.sidenav a:hover {
     color: #f1f1f1;
-  }
-  
-  .sidenav .closebtn {
+}
+
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
 #main {
     transition: margin-left .5s;
     padding: 16px;
@@ -294,19 +301,24 @@ body {
 .font-size-1rem {
     font-size: 1rem;
 }
+
 .margin-left-30 {
     margin-left: 30px;
 }
+
 .text-shadow {
     text-shadow: black 2px 2px 5px;
 }
+
 .title-link {
     color: white;
     text-decoration: none;
 }
+
 .btn-small {
     width: 25px;
 }
+
 .btn-big {
     width: 30px;
 }
@@ -314,21 +326,27 @@ body {
 .rotate-right-90-no-scale {
     transform: rotate(90deg) translateY(-10vw) !important;
 }
+
 .rotate-right-90-scale {
     transform: rotate(90deg) scale(0.5) !important;
 }
+
 .translateY-25 {
     transform: translateY(-25vh);
 }
+
 .scale-15 {
     transform: scale(1.5);
 }
+
 .margin-left-35px {
-    margin-left:35px;
+    margin-left: 35px;
 }
+
 .transition-5s {
     transition: 5s;
 }
+
 .gradient-text {
     background: -webkit-linear-gradient(#0011f6, #ff00cf);
     -webkit-background-clip: text;
@@ -339,7 +357,7 @@ body {
     color: #b639c7;
 }
 
-.evideo > img {
+.evideo>img {
     filter: blur(1px);
 }
 
@@ -355,11 +373,32 @@ body {
     color: white;
     font-weight: bold;
 }
+
 .ui-menu li div {
     padding-bottom: 10px;
 }
+
 .ui-menu li div:hover {
     color: #c569e4;
     cursor: pointer;
     padding-left: 5px;
+}
+
+.img-container {
+    position: relative;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.img-text-centered {
+    position: absolute;
+    bottom: -8%;
+    width: 94%;
+    border-radius: 3px;
+    background-color: #0000009c;
+    color: #a0a0a0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
