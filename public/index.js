@@ -435,7 +435,7 @@ try {
     document.getElementById('id01').style.display='block'
     infoAreaSmall.hide()
     toggleMenu()
-    const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {}
+    const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {}, sCurrentTime = storageGet("videoCurrentTime") || 0
     sVideoName.autocomplete({
         source: getAutoCompleteArr()
     })
@@ -448,8 +448,12 @@ try {
             authorname: videoPlaying.authorname || "Copyright by duynq2197@gmail.com"
         }
     })
-    video.currentTime = storageGet("videoCurrentTime") || 0
+    video.currentTime = sCurrentTime
 
 } catch (e) {
     nextMusic()
 }
+setTimeout(() => {
+    console.log("HI")
+    $(".ads-area").css('background-image', 'url(./ads-background.jpg)')
+}, 100)

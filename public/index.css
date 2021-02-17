@@ -402,7 +402,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.img-container:hover > .img-text-centered {
+
+.img-container:hover>.img-text-centered {
     /* background-color: #a0a0a09c; */
     color: #fff;
     background-color: #000000c6;
@@ -410,11 +411,15 @@ body {
 }
 
 .ads-area {
+    background: url("./ads-background.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     width: 100%;
-    height: 280px;
+    height: 380px;
     margin-bottom: 10px;
-    background-color: #111;
-    box-shadow: 0 6px 3px 9px #000000b0;
+    background-color: #960512;
+    box-shadow: 0px 0px 6px 5px #000000b0;
 }
 
 
@@ -423,27 +428,45 @@ body {
     float: left;
     width: 50%;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
-  }
-  
-  /* Clear floats after the columns */
-  .ads-row:after {
+    height: 400px;
+    /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.ads-row:after {
     content: "";
     display: table;
     clear: both;
-  }
+}
+
+.ads-row>div>p:hover {
+    color: #5e0000;
+}
+
+.ads-row>div>p {
+    padding-left:10px;
+}
 
 /* MOD W3S CSS */
 .w3-modal {
     padding: 10px;
 }
+
 .w3-modal-content {
     width: 100%;
 }
+
 .w3-large {
     font-size: 38px;
 }
-.w3-teal, .w3-hover-teal:hover {
+
+.w3-teal,
+.w3-hover-teal:hover {
     color: #e9e9e9;
-    background-color: #1c1c1c!important;
+    background-color: #1c1c1c !important;
+}
+
+.w3-teal:hover {
+    color: #e9e9e9;
+    background-color: #270000 !important;
 }
