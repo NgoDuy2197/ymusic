@@ -7,59 +7,89 @@
     <title>Listen To Music</title>
     <link rel="icon" href="icon.png">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <!-- W3School CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRXJY0Y3ZZ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-MRXJY0Y3ZZ');
     </script>
     <!-- ADS -->
-    <script data-ad-client="ca-pub-5728211933117474" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    </head>
+    <script data-ad-client="ca-pub-5728211933117474" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
 
 <body>
 
     <div id="app" class="row">
+        <!-- ADS + INFO INTRO -->
+        <div id="id01" class="w3-modal w3-animate-opacity">
+            <div class="w3-modal-content w3-card-4">
+                <header class="w3-container w3-teal">
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                        class="w3-button w3-large w3-display-topright">&times;</span>
+                    <h2>Chúc bạn nghe nhạc vui vẻ</h2>
+                </header>
+                <div class="">
+
+                    <div class="ads-row">
+                        <div class="ads-column" style="background-color:#aaa;">
+                            <!-- GOOGLE_ADS -->
+                        <div class="ads-area">
+                            <script async
+                                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- Ads horizontal -->
+                            <ins class="adsbygoogle" style="display:block; text-align:center;"
+                                data-ad-layout="in-article" data-ad-format="fluid"
+                                data-ad-client="ca-pub-5728211933117474" data-ad-slot="5952487459"></ins>
+                            <script>
+                                $(document).ready(function () { (adsbygoogle = window.adsbygoogle || []).push({}) })
+                            </script>
+                        </div>
+                        <!-- GOOGLE_ADS -->
+                        </div>
+                        <div class="ads-column" style="background-color:#bbb;">
+                            <p>Virus Corona mới 2019-nCov (Covid-19, SARS CoV-2) là gì? <br /> Virus Corona mới
+                                (Covid-19, SARS CoV-2) là một dạng mới của Coronavirus gây nhiễm trùng cấp tính.</p>
+                            <p>Triệu chứng của Coronavirus Mới n-Cov 2019 <br /> <b>Sốt, Khó thở, Ho</b></p>
+                            <p> ./ <br /> </p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="w3-container w3-teal">
+                    <p>Ngô Duy - duynq2197@gmail.com</p>
+                </footer>
+            </div>
+        </div>
         <!-- MENU SLIDE -->
         <div id="mySidenav" class="sidenav">
             <div>
                 <span class="mdi mdi-music-box white-text btn" onclick="toggleDancingVideo(this)">MUSIC</span>
             </div>
             <form autocomplete="off" onsubmit="return false;">
-            <div style="width: 200px;">
-                <span><input id="sVideoName" type="search" results=5 autocomplete="off" style="width: 152px;" class="bg-black white-text" placeholder="Search.." autocomplete=""></span>
-                <span><button class="btn btn-search mdi mdi-magnify" id="btnSearch" onclick="searchVideo()"></button></span>
-                <div style="height: 5px;"></div>
-            </div>
+                <div style="width: 200px;">
+                    <span><input id="sVideoName" type="search" results=5 autocomplete="off" style="width: 152px;"
+                            class="bg-black white-text" placeholder="Search.." autocomplete=""></span>
+                    <span><button class="btn btn-search mdi mdi-magnify" id="btnSearch"
+                            onclick="searchVideo()"></button></span>
+                    <div style="height: 5px;"></div>
+                </div>
             </form>
             <div class="menu-area">
                 <ul id="myMenu">
                 </ul>
             </div>
-            <!-- GOOGLE_ADS -->
-            <div class="ads-area">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- Ads horizontal -->
-                <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-5728211933117474"
-                data-ad-slot="2032890912"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-                <script>
-                    $(document).ready(function(){(adsbygoogle = window.adsbygoogle || []).push({})})
-                </script>
-            </div>
-            <!-- GOOGLE_ADS -->
         </div>
         <!-- MENU SLIDE (END) -->
         <div style="height: 100%;"></div>
-        <div class="menu text-shadow" style="position: fixed;" id="btnToggleMenu" onclick="toggleMenu()" class="mdi mdi-menu-right">
+        <div class="menu text-shadow" style="position: fixed;" id="btnToggleMenu" onclick="toggleMenu()"
+            class="mdi mdi-menu-right">
         </div>
 
 
@@ -73,50 +103,73 @@
 
             <div id="infoAreaBig" class="info-area">
                 <div class="margin-left-30">
-                    <h3><span class="mdi mdi-music-clef-treble"></span><span id="infoSongName" >Title</span></h3>
+                    <h3><span class="mdi mdi-music-clef-treble"></span><span id="infoSongName">Title</span></h3>
                     <p>
-                        <div id="infoDescribe">Describe</div>
-                        <div id="infoAuthorName">Author</div>
+                    <div id="infoDescribe">Describe</div>
+                    <div id="infoAuthorName">Author</div>
                     </p>
                     <div class="btn-group">
-                        <button class="btn btn-hover-bg btn-previous mdi mdi-skip-previous-outline" id="btnPreviousBig" onclick="previousMusic()"></button>
-                        <button class="btn btn-hover-bg btn-play mdi mdi-play-circle-outline" id="btnPlayBig" onclick="playMusic(this)"></button>
-                        <button class="btn btn-hover-bg btn-next mdi mdi-skip-next-outline" id="btnNextBig" onclick="nextMusic()"></button>
+                        <button class="btn btn-hover-bg btn-previous mdi mdi-skip-previous-outline" id="btnPreviousBig"
+                            onclick="previousMusic()"></button>
+                        <button class="btn btn-hover-bg btn-play mdi mdi-play-circle-outline" id="btnPlayBig"
+                            onclick="playMusic(this)"></button>
+                        <button class="btn btn-hover-bg btn-next mdi mdi-skip-next-outline" id="btnNextBig"
+                            onclick="nextMusic()"></button>
                     </div>
-                    <br/>
+                    <br />
                     <div style="margin-top: 5px;">
-                        <span><input id="rangeVideo" name="rangeVideo" type="range" value="0" onchange="rangeVideoChange(this.value)"></span>
+                        <span><input id="rangeVideo" name="rangeVideo" type="range" value="0"
+                                onchange="rangeVideoChange(this.value)"></span>
                         <span id="rangeVideoLabel" style="line-height: 15px; vertical-align: text-top;">00:00</span>
                     </div>
-                    
+
                     <button class="btn" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
-                    <button id="btnFullscreenBig" class="btn btn-fullscreen mdi mdi-cast btn-big" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
-                    <button id="btnAudiOnlyBig" class="btn mdi mdi-speaker btn-big" title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
-                    <button class="btnToggleRotate btn mdi mdi-phone-rotate-landscape btn-big" title="Xoay video" onclick="toggleRotateVideo()"></button>
-                    <button id="btnBlurBig" class="btn btn-fullscreen mdi mdi-blur btn-big" title="Làm mờ" onclick="toggleBlur()"></button>
-                    <button id="btnVideoFullscreenBig" class="btn btn-fullscreen mdi mdi-fullscreen btn-big" title="Video Phóng to" onclick="videoFullscreen()"></button>
-                    <button class="btn mdi mdi-relative-scale btn-big" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button>
+                    <button id="btnFullscreenBig" class="btn btn-fullscreen mdi mdi-cast btn-big"
+                        title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
+                    <button id="btnAudiOnlyBig" class="btn mdi mdi-speaker btn-big" title="Chỉ nghe nhạc"
+                        onclick="toggleAudioOnly(this)"></button>
+                    <button class="btnToggleRotate btn mdi mdi-phone-rotate-landscape btn-big" title="Xoay video"
+                        onclick="toggleRotateVideo()"></button>
+                    <button id="btnBlurBig" class="btn btn-fullscreen mdi mdi-blur btn-big" title="Làm mờ"
+                        onclick="toggleBlur()"></button>
+                    <button id="btnVideoFullscreenBig" class="btn btn-fullscreen mdi mdi-fullscreen btn-big"
+                        title="Video Phóng to" onclick="videoFullscreen()"></button>
+                    <button class="btn mdi mdi-relative-scale btn-big" title="Thay đổi kích thước video"
+                        onclick="changeVideoSize()"></button>
                     <!-- <button class="btn mdi mdi-quality-low btn-big" title="Độ phân giải video" onclick="changeVideoQuality()"></button> -->
                 </div>
             </div>
             <div id="infoAreaSmall" class="info-area-small">
                 <div class="margin-left-30">
-                    <button class="btn text-shadow" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô Duy</button>
-                    <button class="btn btn-small mdi mdi-skip-previous-outline font-size-1rem text-shadow" id="btnPreviousBig" onclick="previousMusic()"></button>
-                    <button class="btn btn-small mdi mdi-play-circle-outline font-size-1rem text-shadow" id="btnPlaySmall" onclick="playMusic(this)"></button>
-                    <button class="btn btn-small mdi mdi-skip-next-outline font-size-1rem text-shadow" id="btnNextBig" onclick="nextMusic()"></button>
-                    <button id="btnFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-cast font-size-1rem text-shadow" title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
-                    <button id="btnAudiOnlySmall" class="btn btn-small mdi mdi-speaker font-size-1rem text-shadow" title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
-                    <button class="btnToggleRotate btn btn-small mdi mdi-phone-rotate-landscape font-size-1rem text-shadow" title="Xoay video" onclick="toggleRotateVideo()"></button>
-                    <button id="btnBlurSmall" class="btn btn-small btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ" onclick="toggleBlur()"></button>
-                    <button id="btnVideoFullscreenSmall" class="btn btn-small btn-fullscreen mdi mdi-fullscreen font-size-1rem text-shadow" title="Video Phóng to" onclick="videoFullscreen()"></button>
+                    <button class="btn text-shadow" style="width:80px;" id="btnHideInfo" onclick="toggleInfo()">Ngô
+                        Duy</button>
+                    <button class="btn btn-small mdi mdi-skip-previous-outline font-size-1rem text-shadow"
+                        id="btnPreviousBig" onclick="previousMusic()"></button>
+                    <button class="btn btn-small mdi mdi-play-circle-outline font-size-1rem text-shadow"
+                        id="btnPlaySmall" onclick="playMusic(this)"></button>
+                    <button class="btn btn-small mdi mdi-skip-next-outline font-size-1rem text-shadow" id="btnNextBig"
+                        onclick="nextMusic()"></button>
+                    <button id="btnFullscreenSmall"
+                        class="btn btn-small btn-fullscreen mdi mdi-cast font-size-1rem text-shadow"
+                        title="Phóng to ứng dụng" onclick="toggleFullscreen()"></button>
+                    <button id="btnAudiOnlySmall" class="btn btn-small mdi mdi-speaker font-size-1rem text-shadow"
+                        title="Chỉ nghe nhạc" onclick="toggleAudioOnly(this)"></button>
+                    <button
+                        class="btnToggleRotate btn btn-small mdi mdi-phone-rotate-landscape font-size-1rem text-shadow"
+                        title="Xoay video" onclick="toggleRotateVideo()"></button>
+                    <button id="btnBlurSmall"
+                        class="btn btn-small btn-fullscreen mdi mdi-blur font-size-1rem text-shadow" title="Làm mờ"
+                        onclick="toggleBlur()"></button>
+                    <button id="btnVideoFullscreenSmall"
+                        class="btn btn-small btn-fullscreen mdi mdi-fullscreen font-size-1rem text-shadow"
+                        title="Video Phóng to" onclick="videoFullscreen()"></button>
                     <!-- <button class="btn btn-small mdi mdi-relative-scale font-size-1rem text-shadow" title="Thay đổi kích thước video" onclick="changeVideoSize()"></button> -->
                     <!-- <button class="btn btn-small mdi mdi-quality-low font-size-1rem text-shadow" title="Độ phân giải video" onclick="changeVideoQuality()"></button> -->
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
 
 

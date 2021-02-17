@@ -432,9 +432,14 @@ function toggleDancingVideo(view) {
 
 //INIT ()
 try {
+    document.getElementById('id01').style.display='block'
     infoAreaSmall.hide()
     toggleMenu()
     const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {}
+    sVideoName.autocomplete({
+        source: getAutoCompleteArr()
+    })
+    localStorage.clear()
     playVideo({
         id: videoPlaying.id || "cpvzKPgFOmg",
         dataset: {
@@ -445,9 +450,6 @@ try {
     })
     video.currentTime = storageGet("videoCurrentTime") || 0
 
-    sVideoName.autocomplete({
-        source: getAutoCompleteArr()
-    })
 } catch (e) {
     nextMusic()
 }
