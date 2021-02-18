@@ -1,3 +1,5 @@
+// Require the package
+const googleNewsScraper = require('google-news-scraper')
 // const youtubeStream = require('youtube-audio-stream')
 //
 const fs = require('fs');
@@ -8,8 +10,20 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
 app.use(express.static(__dirname + '/public'));
-app.get('/', (req, res) => {
-    res.sendfile('public/index.html')
+
+app.get('/news', async (req, res) => {
+    // Execute within an async function, pass a config object (further documentation below)
+    try {
+        const articles = await googleNewsScraper({
+            searchTerm: "Hot news",
+            prettyURLs: false,
+            timeframe: "1d",
+            puppeteerArgs: []
+        })
+        res.json(articles)
+    } catch (error) {
+        next(error)
+    }
 })
 
 app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
@@ -17,7 +31,8 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
         const params = req.params,
             videoId = params.videoId,
             audioOnly = params.audioOnly
-        let videoQuality = params.videoQuality || 'lowest', contentType = "video/mp4"
+        let videoQuality = params.videoQuality || 'lowest',
+            contentType = "video/mp4"
         if (audioOnly == "audioonly") {
             videoQuality = 'lowest'
             contentType = "audio/mpeg"
@@ -53,7 +68,7 @@ app.get('/video/:videoId/:audioOnly/:videoQuality', async (req, res, next) => {
                 parseInt(parts[1], 10) :
                 fileSize - 1
 
-                // 'Content-Range': `bytes ${0}-${end}/${fileSize}`,
+            // 'Content-Range': `bytes ${0}-${end}/${fileSize}`,
             const chunksize = (end - start) + 1
             const head = {
                 'Content-Range': `bytes ${0}-${start}/${end}`,

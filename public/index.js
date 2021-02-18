@@ -432,10 +432,11 @@ function toggleDancingVideo(view) {
 
 //INIT ()
 try {
-    document.getElementById('id01').style.display='block'
+    document.getElementById('id01').style.display = 'block'
     infoAreaSmall.hide()
     toggleMenu()
-    const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {}, sCurrentTime = storageGet("videoCurrentTime") || 0
+    const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {},
+        sCurrentTime = storageGet("videoCurrentTime") || 0
     sVideoName.autocomplete({
         source: getAutoCompleteArr()
     })
@@ -452,6 +453,17 @@ try {
 
 } catch (e) {
     nextMusic()
+}
+try {
+    // NEWS
+    $.get(`./news`, function (data) {
+        for (let i of data) {
+            $("#divNews").append(`<div class="div-new" onClick="window.open('${i.link}','_blank')"><div class="div-row"><div>${i.title}</div><div><img class="thumbnail" src="${i.image || "./ads-background.jpg"}"/></div></div></div><hr/>`)
+        }
+        console.log(data)
+    })
+} catch (error) {
+    console.error(error)
 }
 setTimeout(() => {
     console.log("HI")
