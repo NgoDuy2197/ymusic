@@ -443,7 +443,7 @@ body {
     width: 50%;
     padding: 10px;
 }
-.div-column::-webkit-scrollbar {
+.div-column-noscollbar::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */

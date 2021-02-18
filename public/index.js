@@ -460,7 +460,6 @@ try {
         for (let i of data) {
             $("#divNews").append(`<div class="div-new" onClick="window.open('${i.link}','_blank')"><div class="div-row"><div>${i.title}</div><div><img class="thumbnail" src="${i.image || "./ads-background.jpg"}"/></div></div></div><hr/>`)
         }
-        console.log(data)
     })
 } catch (error) {
     console.error(error)
