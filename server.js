@@ -18,7 +18,7 @@ app.get('/news', async (req, res, next) => {
             searchTerm: "Hot news",
             prettyURLs: false,
             timeframe: "1d",
-            puppeteerArgs: { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
+            puppeteerArgs: ["--no-sandbox"]
         })
         res.json(articles)
     } catch (error) {
