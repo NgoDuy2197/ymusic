@@ -182,60 +182,64 @@ function stopAndClear() {
 }
 
 function playVideo(li) {
-    // STOP and Clear Cache
-    stopAndClear()
-    //
-    let infoSongName = $("#infoSongName")
-    if (previousSongId.length < 10) previousSongId.push(currentLi)
-    currentLi = li
-    let isnHTML = `<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`
-    infoSongName.html(`${loadingTag}${isnHTML}`)
-    infoSongName.addClass("loading")
-    $("#infoDescribe").html(li.dataset.description)
-    $("#infoAuthorName").html(li.dataset.authorname)
-    storagePut("videoPlaying", JSON.stringify({
-        id: li.id,
-        title: li.dataset.title,
-        description: li.dataset.description,
-        authorname: li.dataset.authorname
-    }))
+    try {
+        // STOP and Clear Cache
+        stopAndClear()
+        //
+        let infoSongName = $("#infoSongName")
+        if (previousSongId.length < 10) previousSongId.push(currentLi)
+        currentLi = li
+        let isnHTML = `<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${li.id}">${li.dataset.title}</a>`
+        infoSongName.html(`${loadingTag}${isnHTML}`)
+        infoSongName.addClass("loading")
+        $("#infoDescribe").html(li.dataset.description)
+        $("#infoAuthorName").html(li.dataset.authorname)
+        storagePut("videoPlaying", JSON.stringify({
+            id: li.id,
+            title: li.dataset.title,
+            description: li.dataset.description,
+            authorname: li.dataset.authorname
+        }))
 
-    video.src = `./video/${li.id}/${playStyle}/${videoQuality}`
+        video.src = `./video/${li.id}/${playStyle}/${videoQuality}`
 
-    // myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
-    // video.load()
-    // video.play()
-    // TEST 
-    if (!thisVideoIsFullLoading) {
-        thisVideoIsFullLoading = true
-        var req = new XMLHttpRequest()
-        req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
-        req.responseType = 'blob'
-        req.onload = function () {
-            if (this.status === 200) {
-                var videoBlob = this.response
-                var vid = URL.createObjectURL(videoBlob),
-                    currentTimePlay = video.currentTime
-                video.src = vid
-                video.currentTime = currentTimePlay
-                infoSongName.html(`${isnHTML}`)
-                infoSongName.removeClass("loading")
-                thisVideoIsFullLoading = false
+        // myVideo.find("source").attr("src", `./video/${li.id}/${playStyle}/${videoQuality}`)
+        // video.load()
+        // video.play()
+        // TEST 
+        if (!thisVideoIsFullLoading) {
+            thisVideoIsFullLoading = true
+            var req = new XMLHttpRequest()
+            req.open('GET', `./video/${li.id}/${playStyle}/${videoQuality}`, true)
+            req.responseType = 'blob'
+            req.onload = function () {
+                if (this.status === 200) {
+                    var videoBlob = this.response
+                    var vid = URL.createObjectURL(videoBlob),
+                        currentTimePlay = video.currentTime
+                    video.src = vid
+                    video.currentTime = currentTimePlay
+                    infoSongName.html(`${isnHTML}`)
+                    infoSongName.removeClass("loading")
+                    thisVideoIsFullLoading = false
+                }
             }
+            req.onerror = function () {
+                console.error("ERROR")
+            }
+            req.send()
+        } else {
+            infoSongName.text(`${li.dataset.title}`)
+            infoSongName.removeClass("loading")
         }
-        req.onerror = function () {
-            console.error("ERROR")
-        }
-        req.send()
-    } else {
-        infoSongName.text(`${li.dataset.title}`)
-        infoSongName.removeClass("loading")
-    }
-    // TEST+ END
+        // TEST+ END
 
-    $.get(`./info/${li.id}`, function (data) {
-        refreshListVideos(data)
-    })
+        $.get(`./info/${li.id}`, function (data) {
+            refreshListVideos(data)
+        })
+    } catch (e) {
+        alert(e.message)
+    }
 }
 
 function openAppFullscreen() {
