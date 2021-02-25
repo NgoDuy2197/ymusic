@@ -156,7 +156,7 @@ function refreshListVideos(data) {
     myMenu.empty()
     const isRotated = contentRight.hasClass("rotate-right-90-no-scale") && "rotate-right-90-scale" || ""
     for (let i of data) {
-        myMenu.append(`<li id='${i.videoId}' data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="img-container evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail img-text-centered">${i.title.substring(0,20)}</div></div></li>`);
+        myMenu.append(`<li id='${i.videoId}' href="concu" data-title='${i.title}' data-description='${i.description || ""}' data-authorname='${i.author.name}' onClick="playVideo(this)"><div class="img-container evideo ${isRotated}"><img class="thumbnail" src="${i.thumbnail}"/><div class="title-thumbnail img-text-centered">${i.title.substring(0,20)}</div></div></li>`);
     }
     nextSongId = myMenu.children()[0]
     myMenu.scrollTop(0)
@@ -200,6 +200,7 @@ function playVideo(li) {
         infoSongName.addClass("loading")
         $("#infoDescribe").html(li.dataset.description)
         $("#infoAuthorName").html(li.dataset.authorname)
+        location.hash = `#${li.id}`
         storagePut("videoPlaying", JSON.stringify({
             id: li.id,
             title: li.dataset.title,
@@ -439,6 +440,10 @@ function toggleDancingVideo(view) {
     }
 }
 
+// PARAMS
+var url_string = location.href
+var url = new URL(url_string)
+var videoParam = url.searchParams.get("v")
 
 //INIT ()
 try {
@@ -452,7 +457,7 @@ try {
     })
     delete localStorage[storage_videoCurrentTime]
     playVideo({
-        id: videoPlaying.id || "cpvzKPgFOmg",
+        id: videoParam || videoPlaying.id || "cpvzKPgFOmg",
         dataset: {
             title: videoPlaying.title || "Một điều anh ngại nói ra",
             description: videoPlaying.description || `<h4><a class="title-link" target="_blank" href="${creator}">${creator}</a></h4>`,
