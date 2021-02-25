@@ -17,6 +17,8 @@ const btnToggleRotate = $(".btnToggleRotate")
 const divVideo = $(".divVideo")
 const sVideoName = $("#sVideoName")
 
+// CONST VAR
+const storage_videoCurrentTime = "videoCurrentTime"
 
 // VAR LOCAL
 var creator = "https://www.facebook.com/duynq2197"
@@ -86,7 +88,7 @@ function storageGet(key) {
 }
 
 function saveSessionData(e) {
-    storagePut("videoCurrentTime", video.currentTime)
+    storagePut(storage_videoCurrentTime, video.currentTime)
 }
 //
 window.onbeforeunload = saveSessionData;
@@ -160,13 +162,17 @@ function refreshListVideos(data) {
     myMenu.scrollTop(0)
 }
 
-function searchVideo() {
-    const sText = sVideoName.val(),
-        rsText = removeAccents(sText)
+function pushStoreAutoComplete(text) {
+    rsText = removeAccents(text)
     let arrAutoComplete = getAutoCompleteArr()
     if (arrAutoComplete.length > 19) arrAutoComplete = arrAutoComplete.slice(1)
     if (!arrAutoComplete.some(e => e.includes(rsText))) arrAutoComplete.push(rsText)
     storagePut(storageAutoComplete, JSON.stringify(arrAutoComplete))
+}
+
+function searchVideo() {
+    const sText = sVideoName.val()
+    pushStoreAutoComplete(sText)
     $.get("./search", {
         sText
     }, function (data) {
@@ -440,11 +446,11 @@ try {
     infoAreaSmall.hide()
     toggleMenu()
     const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {},
-        sCurrentTime = storageGet("videoCurrentTime") || 0
+        sCurrentTime = storageGet(storage_videoCurrentTime) || 0
     sVideoName.autocomplete({
         source: getAutoCompleteArr()
     })
-    localStorage.clear()
+    delete localStorage[storage_videoCurrentTime]
     playVideo({
         id: videoPlaying.id || "cpvzKPgFOmg",
         dataset: {
