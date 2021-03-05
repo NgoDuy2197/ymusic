@@ -307,12 +307,12 @@ function toggleMenu() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("app").style.marginLeft = "0";
         btnToggleMenu.removeClass("mdi mdi-close")
-        btnToggleMenu.addClass("mdi mdi-playlist-music-outline")
+        btnToggleMenu.addClass("mdi mdi-chevron-double-right")
     } else {
         document.getElementById("myVideo").style.left = "40%";
         document.getElementById("mySidenav").style.width = "210px";
         document.getElementById("app").style.marginLeft = "210px";
-        btnToggleMenu.removeClass("mdi mdi-playlist-music-outline")
+        btnToggleMenu.removeClass("mdi mdi-chevron-double-right")
         btnToggleMenu.addClass("mdi mdi-close")
     }
 }
