@@ -16,6 +16,8 @@ const contentRight = $("#contentRight")
 const btnToggleRotate = $(".btnToggleRotate")
 const divVideo = $(".divVideo")
 const sVideoName = $("#sVideoName")
+const settingBigPanel = $("#settingBigPanel")
+const settingSmallPanel = $("#settingSmallPanel")
 
 // CONST VAR
 const storage_videoCurrentTime = "videoCurrentTime"
@@ -40,7 +42,7 @@ var thisVideoIsFullLoading = false
 // STORAGE KEY
 const storageAutoComplete = "autocomplete"
 video.onended = function (e) {
-    playVideo(myMenu.children()[Math.round(Math.random() * 10)])
+    playVideo(myMenu.children()[Math.round(Math.random() * 5)])
     togglePlay()
 };
 video.onloadeddata = function (e) {
@@ -170,9 +172,10 @@ function pushStoreAutoComplete(text) {
     storagePut(storageAutoComplete, JSON.stringify(arrAutoComplete))
 }
 
-function searchVideo() {
-    const sText = sVideoName.val()
+function searchVideo(sText) {
+    if (!sText) sText = sVideoName.val()
     pushStoreAutoComplete(sText)
+    myMenu.empty()
     $.get("./search", {
         sText
     }, function (data) {
@@ -274,7 +277,8 @@ function closeAppFullscreen() {
 }
 
 function toggleFullscreen() {
-    if ((window.fullScreen) ||
+    if ((document.fullscreen) ||
+        (window.fullScreen) ||
         (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
         closeAppFullscreen()
     } else {
@@ -303,12 +307,12 @@ function toggleMenu() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("app").style.marginLeft = "0";
         btnToggleMenu.removeClass("mdi mdi-close")
-        btnToggleMenu.addClass("mdi mdi-menu-right")
+        btnToggleMenu.addClass("mdi mdi-playlist-music-outline")
     } else {
         document.getElementById("myVideo").style.left = "40%";
         document.getElementById("mySidenav").style.width = "210px";
         document.getElementById("app").style.marginLeft = "210px";
-        btnToggleMenu.removeClass("mdi mdi-menu-right")
+        btnToggleMenu.removeClass("mdi mdi-playlist-music-outline")
         btnToggleMenu.addClass("mdi mdi-close")
     }
 }
@@ -400,7 +404,7 @@ function toggleControls() {
         $("#myVideo").width("100%")
     } else {
         video.setAttribute("controls", "controls")
-        $("#myVideo").width("68%")
+        $("#myVideo").width("90%")
     }
 }
 
@@ -440,6 +444,25 @@ function toggleDancingVideo(view) {
     }
 }
 
+
+function toggleSetting(bigPanel) {
+    // if (bigPanel) {
+    settingBigPanel.toggleClass("display-block");
+    // if (settingBigPanel.css("display") == "block") {
+    //     settingBigPanel.css("display","none")
+    // } else {
+    //     settingBigPanel.css("display","block")
+    // }
+    // } else {
+    settingSmallPanel.toggleClass("display-block");
+    // if (settingSmallPanel.css("display") == "block") {
+    //     settingSmallPanel.css("display","none")
+    // } else {
+    //     settingSmallPanel.css("display","block")
+    // }
+    // }
+}
+
 // PARAMS
 var url_string = location.href
 var url = new URL(url_string)
@@ -453,7 +476,10 @@ try {
     const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {},
         sCurrentTime = storageGet(storage_videoCurrentTime) || 0
     sVideoName.autocomplete({
-        source: getAutoCompleteArr()
+        source: getAutoCompleteArr(),
+        select: function (e, ui) {
+            searchVideo(ui.item.value)
+        }
     })
     delete localStorage[storage_videoCurrentTime]
     playVideo({

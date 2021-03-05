@@ -111,8 +111,10 @@ body {
 }
 
 .btn-search {
+    height: 44px;
     transform: translateY(4px);
     width: 40px;
+    padding-top: 7px;
 }
 
 .btn-search:hover {
@@ -182,8 +184,13 @@ body {
 .menu {
     color: #ffffff;
     height: 100%;
-    background-color: #000;
+    padding-left: 3px;
+    /* background-color: #000; */
     z-index: 1;
+    font-size: 2rem;
+}
+.menu:hover {
+    background-color: #000;
 }
 
 img {
@@ -358,7 +365,7 @@ body {
 }
 
 .evideo>img {
-    filter: blur(1px);
+    /* filter: blur(1px); */
 }
 
 .ui-menu {
@@ -466,6 +473,26 @@ body {
 .div-new {
     /* max-height: 250px; */
 }
+
+.display-block {
+    display: block !important;
+}
+.settingPanel {
+    /* position: fixed;
+    bottom: 0;
+    background: #00000080;
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px; */
+}
+
+
+
+
+
+
+
+
 /* MOD W3S CSS */
 .w3-modal {
     padding: 10px;
