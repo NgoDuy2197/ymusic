@@ -274,7 +274,7 @@ try {
             var lastDes = des.slice(100)
             $("#infoDescribe").html(`${headDes}<span class="more-content">${lastDes}</span><span id="btnMoreDesText" onclick="toggleReadtxt()" class="btn-moredestext"> (Đọc thêm...)</span>`)
             $("#infoAuthorName").html(info.videoDetails.author.name)
-            infoSongName.html(`<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${info.videoDetails.videoId}">${info.videoDetails.title}</a>`)
+            if (!li.dataset.title) infoSongName.html(`<a class="title-link" target="_blank" href="https://www.youtube.com/watch?v=${info.videoDetails.videoId}">${info.videoDetails.title}</a>`)
             refreshListVideos(info.related_videos)
         })
     }
