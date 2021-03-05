@@ -317,13 +317,14 @@ function videoFullscreen() {
 
 function toggleMenu() {
     if ($("#mySidenav").width() > 0) {
-        document.getElementById("btnToggleMenu").style.backgroundColor = "transparent";
+        $(".menu").css("background-color","transparent")
         document.getElementById("myVideo").style.left = "50%";
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("app").style.marginLeft = "0";
         btnToggleMenu.removeClass("mdi mdi-close")
         btnToggleMenu.addClass("mdi mdi-chevron-right")
     } else {
+        $(".menu").css("background-color","#000")
         document.getElementById("myVideo").style.left = "40%";
         document.getElementById("mySidenav").style.width = "210px";
         document.getElementById("app").style.marginLeft = "210px";

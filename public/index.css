@@ -189,6 +189,7 @@ body {
     z-index: 1;
     font-size: 1.5rem;
 }
+
 .menu:hover {
     background-color: #000;
 }
@@ -398,7 +399,8 @@ body {
     cursor: pointer;
     margin-bottom: 10px;
 }
-.div-new:hover > * {
+
+.div-new:hover>* {
     filter: drop-shadow(2px 4px 6px black);
     cursor: pointer;
 }
@@ -413,6 +415,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .img-text-bottom {
     position: absolute;
     bottom: 0%;
@@ -450,10 +453,13 @@ body {
     width: 50%;
     padding: 10px;
 }
+
 .div-column-noscollbar::-webkit-scrollbar {
     display: none;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* Clear floats after the columns */
@@ -468,8 +474,9 @@ body {
 }
 
 .div-row>div>p {
-    padding-left:10px;
+    padding-left: 10px;
 }
+
 .div-new {
     /* max-height: 250px; */
 }
@@ -477,6 +484,7 @@ body {
 .display-block {
     display: block !important;
 }
+
 .settingPanel {
     /* position: fixed;
     bottom: 0;
@@ -489,15 +497,15 @@ body {
 a {
     text-decoration: none;
 }
+
 a:hover {
-    color:blue;
+    color: blue;
 }
 
 .divNewsLeft {
     background-color: blue;
     font-size: 13px !important;
 }
-
 
 
 
