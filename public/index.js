@@ -404,7 +404,7 @@ function toggleControls() {
         $("#myVideo").width("100%")
     } else {
         video.setAttribute("controls", "controls")
-        $("#myVideo").width("90%")
+        $("#myVideo").width("70%")
     }
 }
 
