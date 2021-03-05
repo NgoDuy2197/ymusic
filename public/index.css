@@ -499,13 +499,26 @@ a {
 }
 
 a:hover {
-    color: blue;
+    color: #f5b62d;
 }
 
 .divNewsLeft {
-    background-color: blue;
+    background-color: #499eff;
     font-size: 13px !important;
 }
+
+.more-content {display: none;}
+.btn-moredestext {
+    color: #fae6ba;
+    cursor: pointer;
+}
+.btn-moredestext:hover {
+    color: #f5b62d;
+    cursor: pointer;
+}
+
+
+
 
 
 

@@ -171,11 +171,11 @@ app.get('/info/:videoId', async (req, res, next) => {
             relatedVideos = []
         for (let e of info.related_videos) {
             e.videoId = e.id
-            e.thumbnail = e.thumbnails[0].url
+            e.thumbnail = e.thumbnails[0].url.split("?")[0]
             relatedVideos.push(e)
         }
-        const result = relatedVideos
-        res.json(result)
+        info.related_videos = relatedVideos
+        res.json(info)
     } catch (error) {
         next(error)
     }
