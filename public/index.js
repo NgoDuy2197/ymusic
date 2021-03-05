@@ -317,6 +317,7 @@ function videoFullscreen() {
 
 function toggleMenu() {
     if ($("#mySidenav").width() > 0) {
+        document.getElementById("btnToggleMenu").style.backgroundColor = "transparent";
         document.getElementById("myVideo").style.left = "50%";
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("app").style.marginLeft = "0";
