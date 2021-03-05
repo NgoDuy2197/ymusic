@@ -18,9 +18,11 @@ const divVideo = $(".divVideo")
 const sVideoName = $("#sVideoName")
 const settingBigPanel = $("#settingBigPanel")
 const settingSmallPanel = $("#settingSmallPanel")
+const adsAndNews = $("#adsAndNews")
 
 // CONST VAR
 const storage_videoCurrentTime = "videoCurrentTime"
+const storage_setting = "setting"
 
 // VAR LOCAL
 var creator = "https://www.facebook.com/duynq2197"
@@ -91,6 +93,18 @@ function storageGet(key) {
 
 function saveSessionData(e) {
     storagePut(storage_videoCurrentTime, video.currentTime)
+}
+
+function getStorageSetting() {
+    const raw = storageGet(storage_setting) || "{}"
+    const json = JSON.parse(raw)
+    return json
+}
+
+function saveStorageSetting(key, value) {
+    const setting = getStorageSetting()
+    setting[key] = value
+    storagePut(storage_setting, JSON.stringify(setting))
 }
 //
 window.onbeforeunload = saveSessionData;
@@ -347,10 +361,11 @@ function changeVideoQuality() {
     playVideo(currentLi)
 }
 
-function toggleAudioOnly(item) {
+function toggleAudioOnly() {
     var btnB = $(`#btnAudiOnlyBig`)
     var btnS = $(`#btnAudiOnlySmall`)
     if (btnB.hasClass("mdi-monitor-speaker")) {
+        saveStorageSetting("audio",0)
         playStyle = 'audioandvideo'
         btnB.addClass("mdi-speaker")
         btnS.addClass("mdi-speaker")
@@ -359,6 +374,7 @@ function toggleAudioOnly(item) {
         btnB.attr('title', "Chỉ nghe nhạc")
         btnS.attr('title', "Chỉ nghe nhạc")
     } else {
+        saveStorageSetting("audio",1)
         playStyle = 'audioonly'
         btnB.addClass("mdi-monitor-speaker")
         btnS.addClass("mdi-monitor-speaker")
@@ -367,7 +383,9 @@ function toggleAudioOnly(item) {
         btnB.attr('title', "Video và nhạc")
         btnS.attr('title', "Video và nhạc")
     }
+    const videoPlayCurrentTime_ = video.currentTime
     playVideo(currentLi)
+    video.currentTime = videoPlayCurrentTime_
 }
 
 function toggleRotateVideo() {
@@ -445,22 +463,16 @@ function toggleDancingVideo(view) {
 }
 
 
-function toggleSetting(bigPanel) {
-    // if (bigPanel) {
+function toggleSetting() {
+    $("#btnSettingBig").toggleClass("mdi-cog-outline")
+    $("#btnSettingSmall").toggleClass("mdi-cog-outline")
+    $("#btnSettingBig").toggleClass("mdi-cog-off-outline")
+    $("#btnSettingSmall").toggleClass("mdi-cog-off-outline")
     settingBigPanel.toggleClass("display-block");
-    // if (settingBigPanel.css("display") == "block") {
-    //     settingBigPanel.css("display","none")
-    // } else {
-    //     settingBigPanel.css("display","block")
-    // }
-    // } else {
     settingSmallPanel.toggleClass("display-block");
-    // if (settingSmallPanel.css("display") == "block") {
-    //     settingSmallPanel.css("display","none")
-    // } else {
-    //     settingSmallPanel.css("display","block")
-    // }
-    // }
+}
+function openAdsAndNews() {
+    adsAndNews.show()
 }
 
 // PARAMS
@@ -470,7 +482,7 @@ var videoParam = url.searchParams.get("v")
 
 //INIT ()
 try {
-    document.getElementById('id01').style.display = 'block'
+    document.getElementById('adsAndNews').style.display = 'block'
     infoAreaSmall.hide()
     toggleMenu()
     const videoPlaying = JSON.parse(storageGet("videoPlaying")) || {},
@@ -492,15 +504,26 @@ try {
     })
     video.currentTime = sCurrentTime
 
+    // SETTING OLD CONFIG
+    var setting = getStorageSetting()
+    if (setting.audio) toggleAudioOnly()
+    // SETTING OLD CONFIG -- END
 } catch (e) {
     nextMusic()
 }
 try {
-    // NEWS
-    $.get(`./news`, function (data) {
-        for (let i of data) {
-            $("#divNews").append(`<div class="div-new" onClick="window.open('${i.link}','_blank')"><div class="div-row"><div>${i.title}</div><div><img class="thumbnail" src="${i.image || "./ads-background.jpg"}"/></div></div></div><hr/>`)
-        }
+    // NEWS RIGHT BAOMOI
+    $.post(`./news`,{
+        url: "https://baomoi.com/tin-video.epi",
+        tag: ".main-col"
+    }).then(function (html) {
+        $("#divNewsLeft").html(html.replace(/data-src/g, "src").replace(/href="/g,`target="_blank" href="https://baomoi.com`))
+    })
+    $.post(`./news`,{
+        url: "https://baomoi.com",
+        tag: ".main-col"
+    }).then(function (html) {
+        $("#divNewsRight").html(html.replace(/data-src/g, "src").replace(/href="/g,`target="_blank" href="https://baomoi.com`))
     })
 } catch (error) {
     console.error(error)

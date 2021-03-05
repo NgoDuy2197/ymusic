@@ -486,6 +486,17 @@ body {
     padding: 20px; */
 }
 
+a {
+    text-decoration: none;
+}
+a:hover {
+    color:blue;
+}
+
+.divNewsLeft {
+    background-color: blue;
+    font-size: 13px !important;
+}
 
 
 

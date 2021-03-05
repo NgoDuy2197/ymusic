@@ -1,5 +1,7 @@
 // Require the package
-const googleNewsScraper = require('google-news-scraper')
+var Crawler = require("crawler");
+const axios = require('axios').default;
+const cheerio = require('cheerio');
 // const youtubeStream = require('youtube-audio-stream')
 //
 const fs = require('fs');
@@ -7,20 +9,74 @@ const ytdl = require('ytdl-core')
 const yts = require('yt-search')
 //
 const express = require('express')
+var bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 3000
 app.use(express.static(__dirname + '/public'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.get('/news', async (req, res, next) => {
+// parse application/json
+app.use(bodyParser.json())
+
+const crawlHtml = (url = "", sTag = "") => {
+    return new Promise((resolve, reject) => {
+        try {
+            var c = new Crawler({
+                maxConnections: 5,
+                callback: function (error, res, done) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        var $ = res.$;
+                        let htmlContent = []
+                        sTag = sTag.split("-")
+                        for (let tag of sTag) {
+                            const cherioData = $(tag)
+                            for (let i = 0; i < cherioData.length; i++) {
+                                const item = cherioData[i]
+                                htmlContent.push({
+                                    attr: item.attribs
+                                })
+                            }
+                        }
+                        resolve(htmlContent)
+                    }
+                    done();
+                }
+            });
+            c.queue(url)
+        } catch (error) {
+            console.log("ERROR crawler")
+            reject(error)
+        }
+    })
+}
+const callAxios = (url = "") => {
+    return new Promise((resolve, reject) => {
+        axios.get(url)
+            .then(function (response) {
+                resolve(response)
+            })
+            .catch(function (error) {
+                console.log("ERROR Axios")
+                reject(error)
+            })
+    })
+}
+const callCheerio = async (url = "", sign = "") => {
+    const page = await callAxios(url)
+    const $ = cheerio.load(page.data);
+    return $(sign).html()
+}
+app.post('/news', async (req, res, next) => {
     // Execute within an async function, pass a config object (further documentation below)
     try {
-        const articles = await googleNewsScraper({
-            searchTerm: "Hot news",
-            prettyURLs: false,
-            timeframe: "1d",
-            puppeteerArgs: ["--no-sandbox"]
-        })
-        res.json(articles)
+        const body = req.body,
+        url = body.url,
+        tag = body.tag
+        let html = await callCheerio(url, tag)
+        res.json(html)
     } catch (error) {
         next(error)
     }
